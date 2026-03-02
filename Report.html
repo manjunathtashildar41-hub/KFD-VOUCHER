@@ -310,7 +310,7 @@
     </div><!-- end max-w wrapper -->
 
     <script>
-        const fmt = n => 'â‚¹ ' + parseFloat(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        const fmt = n => ' ' + parseFloat(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
         const fmtDate = d => d ? new Date(d).toLocaleDateString('en-GB') : '”';
         const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -455,3 +455,4 @@
 
 
 </html>
+
