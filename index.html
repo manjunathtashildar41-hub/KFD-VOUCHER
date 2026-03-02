@@ -399,6 +399,10 @@
                     </td>
                     <td class="px-5 py-4 text-center">
                         <div class="flex items-center justify-center gap-2">
+                            <button onclick="printRecord(${i})"
+                                class="px-3 py-1.5 bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 text-[10px] font-black uppercase rounded-lg transition-all">
+                                Print
+                            </button>
                             <button onclick="openEdit(${i})"
                                 class="px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-400 text-[10px] font-black uppercase rounded-lg transition-all">
                                 Edit
@@ -411,6 +415,33 @@
                     </td>
                 </tr>`;
             }).join('');
+        }
+
+        function printRecord(i) {
+            const v = getVouchers()[i];
+            if (!v) return;
+            const p = new URLSearchParams();
+            p.set('vendorName', v.vendorName || '');
+            p.set('vendorId', v.vendorId || '');
+            p.set('vendorCity', v.vendorCity || '');
+            p.set('headCode', v.headCode || '');
+            p.set('division', v.division || '');
+            p.set('range', v.range || '');
+            p.set('year', v.year || '');
+            p.set('billNo', v.billNumber || '');
+            p.set('billDate', v.billDate || '');
+            p.set('gross', v.grossAmount || '0');
+            p.set('gst', v.gstAmount || '0');
+            p.set('gstRate', v.gstRate || '0');
+            p.set('it', v.itAmount || '0');
+            p.set('itRate', v.itRate || '0');
+            p.set('net', v.netAmount || '0');
+            p.set('particulars', v.particulars || '');
+            p.set('billCategory', v.billCategory || '');
+            p.set('vr_no', v.vr_no || '');
+            p.set('fnb_no', v.fnb_no || '');
+            p.set('p_no', v.p_no || '');
+            window.open(`Voucher Format (FAC 63).html?${p.toString()}&dcf=false`, '_blank');
         }
 
         function deleteRecord(i) {
