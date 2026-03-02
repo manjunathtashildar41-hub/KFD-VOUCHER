@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Vendor - KFD Voucher Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .row-card {
+            transition: all 0.15s;
+        }
+
+        .row-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-orange-50 to-amber-50 min-h-screen p-6 md:p-10">
+    <div class="max-w-2xl mx-auto">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-2xl font-black text-orange-900 uppercase tracking-tight">Vendor Details</h1>
+                <p class="text-orange-400 text-xs font-bold uppercase tracking-widest mt-0.5">KFD · Badami SF Range</p>
+            </div>
+            <a href="Main Board.html"
+                class="flex items-center gap-2 text-xs font-black uppercase text-gray-500 hover:text-orange-700 transition-all border border-gray-200 px-4 py-2 rounded-xl hover:border-orange-300 bg-white">
+                ← Back
+            </a>
+        </div>
+
+        <!-- Add / Edit Form Card -->
+        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 mb-8">
+            <h2 id="form-title" class="text-sm font-black uppercase text-gray-400 tracking-widest mb-6">Add New Vendor
+            </h2>
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="text-xs font-black uppercase text-gray-500 mb-1.5 block">Vendor Name</label>
+                    <input id="vendorName"
+                        class="w-full px-5 py-4 bg-gray-50 rounded-2xl border-2 border-transparent font-black text-orange-900 text-base outline-none focus:border-orange-400 focus:bg-white transition-all"
+                        placeholder="Full Vendor / Payee Name">
+                </div>
+                <div>
+                    <label class="text-xs font-black uppercase text-gray-500 mb-1.5 block">K-II Receipt ID</label>
+                    <input id="receiptId"
+                        class="w-full px-5 py-4 bg-gray-50 rounded-2xl border-2 border-transparent font-bold text-gray-700 outline-none focus:border-orange-400 focus:bg-white transition-all"
+                        placeholder="K-II Receipt ID">
+                </div>
+                <div>
+                    <label class="text-xs font-black uppercase text-gray-500 mb-1.5 block">GST No <span
+                            class="text-gray-300 font-semibold normal-case">(optional)</span></label>
+                    <input id="vendorGst"
+                        class="w-full px-5 py-4 bg-gray-50 rounded-2xl border-2 border-transparent font-bold text-gray-700 outline-none focus:border-orange-400 focus:bg-white transition-all"
+                        placeholder="GST Number (if applicable)">
+                </div>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button id="submit-btn" onclick="submitVendor()"
+                    class="flex-1 py-4 bg-orange-600 hover:bg-orange-700 active:scale-95 text-white font-black rounded-2xl uppercase tracking-widest shadow-lg shadow-orange-200 transition-all">
+                    Add Vendor
+                </button>
+                <button id="cancel-btn" onclick="cancelEdit()"
+                    class="hidden px-6 py-4 bg-gray-100 hover:bg-gray-200 text-gray-600 font-black rounded-2xl uppercase text-xs tracking-widest transition-all">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <!-- Saved Vendors List -->
+        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+            <div class="flex items-center justify-between px-8 py-5 border-b border-gray-100">
+                <h2 class="text-sm font-black uppercase text-gray-500 tracking-widest">Saved Vendors</h2>
+                <span id="vendor-count" class="text-xs font-black text-orange-400 bg-orange-50 px-3 py-1 rounded-full">0
+                    vendors</span>
+            </div>
+            <div id="vendorList" class="divide-y divide-gray-50 p-4 space-y-2"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let editIdx = -1;
+        let pendingDeleteIdx = -1;
+
+        const getVendors = () => JSON.parse(localStorage.getItem('kfd_vendors') || '[]');
+        const saveVendors = d => localStorage.setItem('kfd_vendors', JSON.stringify(d));
+
+        function escHtml(s) {
+            return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function renderList() {
+            const vendors = getVendors();
+            const list = document.getElementById('vendorList');
+            const counter = document.getElementById('vendor-count');
+            counter.textContent = vendors.length + ' vendor' + (vendors.length !== 1 ? 's' : '');
+
+            if (vendors.length === 0) {
+                list.innerHTML = `
+                    <div class="py-12 text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                            <svg width="24" height="24" fill="none" stroke="#94a3b8" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <p class="text-gray-400 font-black uppercase text-xs tracking-widest">No vendors added yet</p>
+                    </div>`;
+                return;
+            }
+
+            list.innerHTML = vendors.map((v, i) => {
+                const isPending = pendingDeleteIdx === i;
+                const isEditing = editIdx === i;
+                return `
+                <div class="row-card flex items-center justify-between p-4 rounded-2xl border transition-all
+                    ${isPending ? 'bg-red-50 border-red-200' : isEditing ? 'bg-orange-50 border-orange-200 ring-2 ring-orange-400' : 'bg-gray-50 border-gray-100'}">
+                    <div class="flex-1 min-w-0 mr-4">
+                        <p class="font-black text-orange-900 text-sm truncate">${escHtml(v.name)}</p>
+                        <div class="flex gap-3 mt-0.5">
+                            ${v.receiptId ? `<span class="text-gray-500 text-[10px] font-bold">ID: ${escHtml(v.receiptId)}</span>` : ''}
+                            ${v.gst ? `<span class="text-gray-400 text-[10px] font-semibold">GST: ${escHtml(v.gst)}</span>` : ''}
+                        </div>
+                        ${isPending ? `<p class="text-red-600 text-[10px] font-black mt-1 uppercase tracking-wide">⚠ Confirm delete?</p>` : ''}
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        ${isPending ? `
+                            <button data-i="${i}" data-action="delete-confirm"
+                                class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-[10px] font-black uppercase rounded-lg transition-all">
+                                ✓ Yes, Delete
+                            </button>
+                            <button data-i="${i}" data-action="delete-cancel"
+                                class="px-3 py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-[10px] font-black uppercase rounded-lg transition-all">
+                                ✗ Cancel
+                            </button>
+                        ` : `
+                            <button data-i="${i}" data-action="edit"
+                                class="px-3 py-1.5 bg-orange-100 hover:bg-orange-200 text-orange-700 text-[10px] font-black uppercase rounded-lg transition-all">
+                                Edit
+                            </button>
+                            <button data-i="${i}" data-action="delete"
+                                class="px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-600 text-[10px] font-black uppercase rounded-lg transition-all">
+                                Delete
+                            </button>
+                        `}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // Event delegation — no window.confirm() needed
+        document.getElementById('vendorList').addEventListener('click', function (e) {
+            const btn = e.target.closest('button[data-action]');
+            if (!btn) return;
+            const i = parseInt(btn.dataset.i);
+            const action = btn.dataset.action;
+            if (action === 'delete') { pendingDeleteIdx = i; renderList(); }
+            if (action === 'delete-confirm') { doDelete(i); }
+            if (action === 'delete-cancel') { pendingDeleteIdx = -1; renderList(); }
+            if (action === 'edit') { startEdit(i); }
+        });
+
+        function submitVendor() {
+            const name = document.getElementById('vendorName').value.trim();
+            if (!name) {
+                document.getElementById('vendorName').focus();
+                document.getElementById('vendorName').classList.add('border-red-400');
+                setTimeout(() => document.getElementById('vendorName').classList.remove('border-red-400'), 1500);
+                return;
+            }
+            const vendors = getVendors();
+            const record = {
+                name,
+                receiptId: document.getElementById('receiptId').value.trim(),
+                gst: document.getElementById('vendorGst').value.trim()
+            };
+            if (editIdx >= 0) {
+                record.id = vendors[editIdx].id; // preserve original ID
+                vendors[editIdx] = record;
+                editIdx = -1;
+                document.getElementById('form-title').textContent = 'Add New Vendor';
+                document.getElementById('submit-btn').textContent = 'Add Vendor';
+                document.getElementById('cancel-btn').classList.add('hidden');
+            } else {
+                record.id = Date.now().toString();
+                vendors.push(record);
+            }
+            saveVendors(vendors);
+            document.getElementById('vendorName').value = '';
+            document.getElementById('receiptId').value = '';
+            document.getElementById('vendorGst').value = '';
+            pendingDeleteIdx = -1;
+            renderList();
+        }
+
+        function startEdit(i) {
+            const v = getVendors()[i];
+            editIdx = i;
+            pendingDeleteIdx = -1;
+            document.getElementById('vendorName').value = v.name || '';
+            document.getElementById('receiptId').value = v.receiptId || '';
+            document.getElementById('vendorGst').value = v.gst || '';
+            document.getElementById('form-title').textContent = 'Edit Vendor';
+            document.getElementById('submit-btn').textContent = 'Save Changes';
+            document.getElementById('cancel-btn').classList.remove('hidden');
+            document.getElementById('vendorName').focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderList();
+        }
+
+        function cancelEdit() {
+            editIdx = -1;
+            document.getElementById('vendorName').value = '';
+            document.getElementById('receiptId').value = '';
+            document.getElementById('vendorGst').value = '';
+            document.getElementById('form-title').textContent = 'Add New Vendor';
+            document.getElementById('submit-btn').textContent = 'Add Vendor';
+            document.getElementById('cancel-btn').classList.add('hidden');
+            renderList();
+        }
+
+        function doDelete(i) {
+            if (editIdx === i) cancelEdit();
+            const vendors = getVendors();
+            vendors.splice(i, 1);
+            saveVendors(vendors);
+            if (editIdx > i) editIdx--;
+            pendingDeleteIdx = -1;
+            renderList();
+        }
+
+        // Enter key submits
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && ['vendorName', 'receiptId', 'vendorGst'].includes(e.target.id)) submitVendor();
+        });
+
+        renderList();
+    </script>
+</body>
+
+</html>

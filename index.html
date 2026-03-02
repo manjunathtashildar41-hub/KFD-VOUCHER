@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KFD Voucher Pro — Main Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+Kannada:wght@400;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Kannada', sans-serif;
+            background: #0f172a;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-card {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 24px 48px -8px rgba(0, 0, 0, 0.6);
+        }
+
+        .glow-green {
+            box-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
+        }
+
+        .glow-blue {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .glow-amber {
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .ledger-row {
+            transition: background 0.15s;
+        }
+
+        .ledger-row:hover {
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px 24px;
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8">
+
+    <!-- Header -->
+    <div class="max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-8 fade-in">
+            <div class="flex items-center gap-5">
+                <div
+                    class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-700 flex items-center justify-center shadow-xl">
+                    <svg width="28" height="28" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-black text-white tracking-tight">KFD VOUCHER PRO</h1>
+                    <p class="text-xs font-semibold text-green-400 uppercase tracking-[0.25em] mt-0.5">Main Board ·
+                        Badami SF Range</p>
+                </div>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-gray-500 text-xs font-semibold uppercase tracking-widest">Karnataka Forest Dept.</p>
+                <p id="clock" class="text-white font-black text-lg mt-0.5"></p>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 fade-in" style="animation-delay:0.05s">
+            <div class="stat-card">
+                <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Vouchers</p>
+                <p class="text-white font-black text-3xl mt-1" id="stat-total">0</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Gross</p>
+                <p class="text-green-400 font-black text-2xl mt-1" id="stat-gross">₹ 0</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Net Paid</p>
+                <p class="text-blue-400 font-black text-2xl mt-1" id="stat-net">₹ 0</p>
+            </div>
+            <!-- Year Setting Card -->
+            <div class="stat-card"
+                style="border: 1px solid rgba(250,204,21,0.25); background: linear-gradient(135deg, rgba(250,204,21,0.08), rgba(250,204,21,0.02));">
+                <div class="flex items-center justify-between mb-1">
+                    <p class="text-yellow-500 text-[10px] font-black uppercase tracking-widest">Financial Year</p>
+                    <button onclick="toggleYearEdit()" id="year-edit-btn"
+                        class="text-yellow-400 hover:text-yellow-200 transition-all" title="Edit Year">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Display mode -->
+                <p class="text-yellow-300 font-black text-2xl mt-0.5" id="year-display"></p>
+                <!-- Edit mode (hidden by default) -->
+                <div id="year-edit-row" class="hidden flex gap-2 mt-1 items-center">
+                    <select id="year-select"
+                        class="flex-1 bg-black/30 border border-yellow-500/30 text-yellow-200 font-black text-sm rounded-lg px-2 py-1.5 outline-none focus:ring-1 focus:ring-yellow-400">
+                        <option>2023-24</option>
+                        <option>2024-25</option>
+                        <option selected>2025-26</option>
+                        <option>2026-27</option>
+                        <option>2027-28</option>
+                    </select>
+                    <button onclick="saveYear()"
+                        class="px-3 py-1.5 bg-yellow-500 hover:bg-yellow-400 text-black text-[10px] font-black rounded-lg transition-all">
+                        Set
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Cards — 4 tiles -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8 fade-in" style="animation-delay:0.1s">
+            <!-- Bill Entry -->
+            <a href="Bill%20Entry%20Form.html" class="nav-card glow-green rounded-3xl p-8 text-white text-left block"
+                style="background: linear-gradient(135deg, #16a34a, #14532d);">
+                <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-black uppercase tracking-wide">Bill Entry</h3>
+                <p class="text-green-200 text-xs mt-1.5 font-semibold">Create New FAC 63 &amp; Order</p>
+            </a>
+
+            <!-- Entry Head -->
+            <a href="Entry%20Head.html" class="nav-card glow-blue rounded-3xl p-8 text-white text-left block"
+                style="background: linear-gradient(135deg, #2563eb, #1e3a8a);">
+                <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-black uppercase tracking-wide">Entry Head</h3>
+                <p class="text-blue-200 text-xs mt-1.5 font-semibold">Manage Budget Codes</p>
+            </a>
+
+            <!-- Enter Vendor -->
+            <a href="Enter%20Vendor.html" class="nav-card glow-amber rounded-3xl p-8 text-white text-left block"
+                style="background: linear-gradient(135deg, #d97706, #78350f);">
+                <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-black uppercase tracking-wide">Enter Vendor</h3>
+                <p class="text-amber-200 text-xs mt-1.5 font-semibold">Manage Payee Details</p>
+            </a>
+
+            <!-- Report -->
+            <a href="Report.html" class="nav-card rounded-3xl p-8 text-white text-left block"
+                style="background: linear-gradient(135deg, #7c3aed, #3b0764); box-shadow: 0 0 40px rgba(124,58,237,0.2);">
+                <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-black uppercase tracking-wide">Report</h3>
+                <p class="text-purple-200 text-xs mt-1.5 font-semibold">View &amp; Print Custom Reports</p>
+            </a>
+        </div>
+
+
+
+        <!-- Voucher Ledger -->
+        <div class="glass rounded-3xl overflow-hidden fade-in" style="animation-delay:0.15s">
+            <!-- Ledger Header -->
+            <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-green-500/20 flex items-center justify-center">
+                        <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    <h2 class="text-white font-black text-base uppercase tracking-widest">Voucher Ledger</h2>
+                </div>
+                <button onclick="clearAll()"
+                    class="text-red-400 hover:text-red-300 text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl hover:bg-red-500/10 transition-all"
+                    title="Clear All Records">
+                    Clear All
+                </button>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-white/10">
+                            <th
+                                class="text-left px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                #</th>
+                            <th
+                                class="text-left px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Vendor</th>
+                            <th
+                                class="text-left px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Category</th>
+                            <th
+                                class="text-left px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Bill No</th>
+                            <th
+                                class="text-left px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Date</th>
+                            <th
+                                class="text-right px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Gross</th>
+                            <th
+                                class="text-right px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Net</th>
+                            <th
+                                class="text-center px-5 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ledger-body">
+                        <!-- filled by JS -->
+                    </tbody>
+                </table>
+                <div id="empty-state" class="hidden py-16 text-center">
+                    <svg class="mx-auto mb-4 opacity-20" width="48" height="48" fill="none" stroke="white"
+                        stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <p class="text-gray-600 font-black uppercase text-sm tracking-widest">No vouchers saved yet</p>
+                    <p class="text-gray-700 text-xs mt-1">Use Bill Entry to create your first voucher</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-[#1e293b] border border-white/10 rounded-3xl p-8 w-full max-w-lg shadow-2xl">
+            <h3 class="text-white font-black text-lg uppercase tracking-widest mb-6">Edit Voucher Record</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-gray-500 text-[10px] font-black uppercase tracking-widest block mb-1">Vendor
+                        Name</label>
+                    <input id="e-vendor"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white font-bold text-sm outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-gray-500 text-[10px] font-black uppercase tracking-widest block mb-1">Bill
+                            No</label>
+                        <input id="e-billno"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white font-bold text-sm outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-[10px] font-black uppercase tracking-widest block mb-1">Bill
+                            Date</label>
+                        <input id="e-billdate" type="date"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white font-bold text-sm outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-gray-500 text-[10px] font-black uppercase tracking-widest block mb-1">Gross
+                            Amount (₹)</label>
+                        <input id="e-gross" type="number"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white font-bold text-sm outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-[10px] font-black uppercase tracking-widest block mb-1">Net
+                            Amount (₹)</label>
+                        <input id="e-net"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white font-bold text-sm outline-none focus:ring-2 focus:ring-green-500"
+                            readonly>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-gray-500 text-[10px] font-black uppercase tracking-widest block mb-1">Category /
+                        Particulars</label>
+                    <input id="e-category"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white font-bold text-sm outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="saveEdit()"
+                    class="flex-1 py-3 bg-green-600 hover:bg-green-500 text-white font-black rounded-2xl uppercase text-xs tracking-widest transition-all">Save
+                    Changes</button>
+                <button onclick="closeModal()"
+                    class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-gray-300 font-black rounded-2xl uppercase text-xs tracking-widest transition-all">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let editIdx = -1;
+
+        // Clock
+        const clockEl = document.getElementById('clock');
+        const tick = () => { clockEl.textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); };
+        tick(); setInterval(tick, 1000);
+
+        // Load and render vouchers
+        function getVouchers() { return JSON.parse(localStorage.getItem('kfd_vouchers') || '[]'); }
+        function saveVouchers(v) { localStorage.setItem('kfd_vouchers', JSON.stringify(v)); }
+
+        function fmt(n) { return '₹ ' + parseFloat(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 }); }
+
+        function renderLedger() {
+            const vouchers = getVouchers();
+            const tbody = document.getElementById('ledger-body');
+            const empty = document.getElementById('empty-state');
+
+            // Stats
+            const totalGross = vouchers.reduce((s, v) => s + parseFloat(v.grossAmount || 0), 0);
+            const totalNet = vouchers.reduce((s, v) => s + parseFloat(v.netAmount || 0), 0);
+            document.getElementById('stat-total').textContent = vouchers.length;
+            document.getElementById('stat-gross').textContent = fmt(totalGross);
+            document.getElementById('stat-net').textContent = fmt(totalNet);
+
+            if (vouchers.length === 0) {
+                tbody.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+            empty.classList.add('hidden');
+
+            tbody.innerHTML = vouchers.map((v, i) => {
+                const date = v.billDate ? new Date(v.billDate).toLocaleDateString('en-GB') : '—';
+                const isEven = i % 2 === 0;
+                return `
+                <tr class="ledger-row border-b border-white/5" style="background:${isEven ? 'rgba(255,255,255,0.01)' : 'transparent'}">
+                    <td class="px-5 py-4 text-gray-600 font-black text-xs">${String(i + 1).padStart(2, '0')}</td>
+                    <td class="px-5 py-4">
+                        <p class="text-white font-bold text-sm">${v.vendorName || '—'}</p>
+                        <p class="text-gray-600 text-[10px] font-semibold mt-0.5">${v.headCode || ''}</p>
+                    </td>
+                    <td class="px-5 py-4 text-gray-400 text-xs font-semibold">${v.billCategory || '—'}</td>
+                    <td class="px-5 py-4 text-gray-300 text-xs font-bold font-mono">${v.billNumber || '—'}</td>
+                    <td class="px-5 py-4 text-gray-400 text-xs font-semibold">${date}</td>
+                    <td class="px-5 py-4 text-right text-gray-300 text-sm font-bold">${fmt(v.grossAmount)}</td>
+                    <td class="px-5 py-4 text-right">
+                        <span class="text-green-400 font-black text-sm">${fmt(v.netAmount)}</span>
+                    </td>
+                    <td class="px-5 py-4 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button onclick="openEdit(${i})"
+                                class="px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-400 text-[10px] font-black uppercase rounded-lg transition-all">
+                                Edit
+                            </button>
+                            <button onclick="deleteRecord(${i})"
+                                class="px-3 py-1.5 bg-red-500/20 hover:bg-red-500/40 text-red-400 text-[10px] font-black uppercase rounded-lg transition-all">
+                                Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function deleteRecord(i) {
+            if (!confirm('Delete this voucher record?')) return;
+            const v = getVouchers();
+            v.splice(i, 1);
+            saveVouchers(v);
+            renderLedger();
+        }
+
+        function openEdit(i) {
+            editIdx = i;
+            const v = getVouchers()[i];
+            document.getElementById('e-vendor').value = v.vendorName || '';
+            document.getElementById('e-billno').value = v.billNumber || '';
+            document.getElementById('e-billdate').value = v.billDate || '';
+            document.getElementById('e-gross').value = v.grossAmount || '';
+            document.getElementById('e-net').value = v.netAmount || '';
+            document.getElementById('e-category').value = v.billCategory || '';
+            document.getElementById('edit-modal').classList.remove('hidden');
+            document.getElementById('edit-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('edit-modal').classList.add('hidden');
+            document.getElementById('edit-modal').classList.remove('flex');
+            editIdx = -1;
+        }
+
+        function saveEdit() {
+            if (editIdx < 0) return;
+            const v = getVouchers();
+            v[editIdx].vendorName = document.getElementById('e-vendor').value;
+            v[editIdx].billNumber = document.getElementById('e-billno').value;
+            v[editIdx].billDate = document.getElementById('e-billdate').value;
+            v[editIdx].grossAmount = document.getElementById('e-gross').value;
+            v[editIdx].billCategory = document.getElementById('e-category').value;
+            saveVouchers(v);
+            closeModal();
+            renderLedger();
+        }
+
+        function clearAll() {
+            if (!confirm('Clear ALL voucher records? This cannot be undone.')) return;
+            localStorage.removeItem('kfd_vouchers');
+            renderLedger();
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('edit-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        renderLedger();
+
+        // ===== YEAR SETTING =====
+        const YEAR_KEY = 'kfd_year';
+
+        function getYear() {
+            return localStorage.getItem(YEAR_KEY) || '2025-26';
+        }
+
+        function initYear() {
+            const y = getYear();
+            document.getElementById('year-display').textContent = y;
+            // Set dropdown to match
+            const sel = document.getElementById('year-select');
+            for (let i = 0; i < sel.options.length; i++) {
+                if (sel.options[i].value === y) { sel.selectedIndex = i; break; }
+            }
+        }
+
+        function toggleYearEdit() {
+            const row = document.getElementById('year-edit-row');
+            const disp = document.getElementById('year-display');
+            const isHidden = row.classList.contains('hidden');
+            row.classList.toggle('hidden', !isHidden);
+            disp.classList.toggle('hidden', isHidden);
+        }
+
+        function saveYear() {
+            const y = document.getElementById('year-select').value;
+            localStorage.setItem(YEAR_KEY, y);
+            document.getElementById('year-display').textContent = y;
+            // Close edit mode
+            document.getElementById('year-edit-row').classList.add('hidden');
+            document.getElementById('year-display').classList.remove('hidden');
+        }
+
+        initYear();
+    </script>
+</body>
+
+</html>

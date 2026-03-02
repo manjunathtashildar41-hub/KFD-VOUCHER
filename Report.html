@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report - KFD Voucher Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-input {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            width: 100%;
+            transition: border 0.15s;
+        }
+
+        .filter-input:focus {
+            border-color: rgba(167, 139, 250, 0.6);
+        }
+
+        .filter-input option {
+            background: #1e293b;
+            color: white;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 18px 22px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.35s ease forwards;
+        }
+
+        .ledger-row {
+            transition: background 0.12s;
+        }
+
+        .ledger-row:hover {
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0 !important;
+            }
+
+            @page {
+                size: A4 landscape;
+                margin: 12mm;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .page-wrap {
+                background: white !important;
+            }
+
+            .print-header {
+                display: block !important;
+            }
+
+            table {
+                font-size: 10px !important;
+            }
+
+            th {
+                background: #f1f5f9 !important;
+                color: black !important;
+            }
+
+            td {
+                color: black !important;
+                border-color: #e2e8f0 !important;
+            }
+
+            .stat-card {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+
+            .stat-val {
+                color: #1e293b !important;
+            }
+
+            .glass {
+                background: white !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8">
+
+    <!-- Print-only header -->
+    <div class="print-header hidden text-center mb-6">
+        <h1 class="text-xl font-black uppercase">Karnataka Forest Department â€” Voucher Report</h1>
+        <p id="print-subtitle" class="text-sm text-gray-600 mt-1"></p>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8 fade-in no-print">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl flex items-center justify-center shadow-xl"
+                    style="background: linear-gradient(135deg, #7c3aed, #3b0764);">
+                    <svg width="22" height="22" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-white tracking-tight">Voucher Report</h1>
+                    <p class="text-purple-400 text-xs font-bold uppercase tracking-[0.25em] mt-0.5">KFD Â· Badami SF
+                        Range</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="index.html"
+                    class="text-xs font-black uppercase text-gray-400 hover:text-white border border-white/10 hover:border-white/30 px-4 py-2.5 rounded-xl transition-all">
+                    â† Back
+                </a>
+                <button onclick="window.print()"
+                    class="flex items-center gap-2 px-5 py-2.5 font-black text-xs uppercase rounded-xl text-white transition-all"
+                    style="background: linear-gradient(135deg, #7c3aed, #5b21b6);">
+                    <svg width="14" height="14" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Print Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="glass rounded-3xl p-6 mb-6 fade-in no-print" style="animation-delay:0.05s">
+            <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-4">Filter Report</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div>
+                    <label class="text-gray-600 text-[10px] font-black uppercase tracking-widest block mb-1.5">Financial
+                        Year</label>
+                    <select id="f-year" class="filter-input" onchange="applyFilters()">
+                        <option value="">All Years</option>
+                        <option>2023-24</option>
+                        <option>2024-25</option>
+                        <option>2025-26</option>
+                        <option>2026-27</option>
+                        <option>2027-28</option>
+                    </select>
+                </div>
+                <div>
+                    <label
+                        class="text-gray-600 text-[10px] font-black uppercase tracking-widest block mb-1.5">Vendor</label>
+                    <select id="f-vendor" class="filter-input" onchange="applyFilters()">
+                        <option value="">All Vendors</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-gray-600 text-[10px] font-black uppercase tracking-widest block mb-1.5">Budget
+                        Head</label>
+                    <select id="f-head" class="filter-input" onchange="applyFilters()">
+                        <option value="">All Heads</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-gray-600 text-[10px] font-black uppercase tracking-widest block mb-1.5">From
+                        Date</label>
+                    <input type="date" id="f-from" class="filter-input" onchange="applyFilters()">
+                </div>
+                <div>
+                    <label class="text-gray-600 text-[10px] font-black uppercase tracking-widest block mb-1.5">To
+                        Date</label>
+                    <input type="date" id="f-to" class="filter-input" onchange="applyFilters()">
+                </div>
+            </div>
+            <div class="flex gap-2 mt-4">
+                <button onclick="resetFilters()"
+                    class="px-4 py-2 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-[10px] font-black uppercase rounded-xl transition-all">
+                    Reset Filters
+                </button>
+                <span id="filter-badge" class="px-4 py-2 text-[10px] font-black uppercase rounded-xl text-purple-300"
+                    style="background: rgba(124,58,237,0.15);"></span>
+            </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 fade-in" style="animation-delay:0.1s">
+            <div class="stat-card">
+                <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Vouchers</p>
+                <p class="text-white font-black text-3xl mt-1 stat-val" id="s-count">0</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Gross</p>
+                <p class="text-green-400 font-black text-2xl mt-1 stat-val" id="s-gross">â‚¹ 0.00</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total GST + IT</p>
+                <p class="text-red-400 font-black text-2xl mt-1 stat-val" id="s-deduct">â‚¹ 0.00</p>
+            </div>
+            <div class="stat-card"
+                style="border-color: rgba(167,139,250,0.25); background: linear-gradient(135deg,rgba(167,139,250,0.08),rgba(167,139,250,0.02));">
+                <p class="text-purple-400 text-[10px] font-black uppercase tracking-widest">Total Net Paid</p>
+                <p class="text-purple-300 font-black text-2xl mt-1 stat-val" id="s-net">â‚¹ 0.00</p>
+            </div>
+        </div>
+
+        <!-- Report Table -->
+        <div class="glass rounded-3xl overflow-hidden fade-in" style="animation-delay:0.15s">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-white/10 no-print">
+                <h2 class="text-white font-black text-sm uppercase tracking-widest">Voucher Records</h2>
+                <span id="row-count" class="text-gray-500 text-xs font-bold"></span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm" id="report-table">
+                    <thead>
+                        <tr class="border-b border-white/10">
+                            <th
+                                class="text-left px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                #</th>
+                            <th
+                                class="text-left px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Vendor</th>
+                            <th
+                                class="text-left px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Category</th>
+                            <th
+                                class="text-left px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Head</th>
+                            <th
+                                class="text-left px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Bill No</th>
+                            <th
+                                class="text-left px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Bill Date</th>
+                            <th
+                                class="text-right px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Gross</th>
+                            <th
+                                class="text-right px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                GST</th>
+                            <th
+                                class="text-right px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                IT</th>
+                            <th
+                                class="text-right px-4 py-3 text-gray-500 font-black text-[10px] uppercase tracking-widest">
+                                Net Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report-body"></tbody>
+                    <tfoot id="report-foot"></tfoot>
+                </table>
+                <div id="empty-state" class="hidden py-16 text-center">
+                    <svg class="mx-auto mb-4 opacity-20" width="48" height="48" fill="none" stroke="white"
+                        stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <p class="text-gray-600 font-black uppercase text-sm tracking-widest">No records match the current
+                        filters</p>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end max-w wrapper -->
+
+    <script>
+        const fmt = n => 'â‚¹ ' + parseFloat(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        const fmtDate = d => d ? new Date(d).toLocaleDateString('en-GB') : 'â€”';
+        const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        const getVouchers = () => JSON.parse(localStorage.getItem('kfd_vouchers') || '[]');
+        const getVendors = () => JSON.parse(localStorage.getItem('kfd_vendors') || '[]');
+        const getHeads = () => JSON.parse(localStorage.getItem('kfd_heads') || '[]');
+
+        // Populate filter dropdowns
+        function populateFilters() {
+            const vouchers = getVouchers();
+
+            // Year filter â€” pre-select global year
+            const globalYear = localStorage.getItem('kfd_year') || '2025-26';
+            const ysel = document.getElementById('f-year');
+            for (let i = 0; i < ysel.options.length; i++) {
+                if (ysel.options[i].value === globalYear) { ysel.selectedIndex = i; break; }
+            }
+
+            // Vendor dropdown
+            const vsel = document.getElementById('f-vendor');
+            const vendorNames = [...new Set(vouchers.map(v => v.vendorName).filter(Boolean))].sort();
+            vendorNames.forEach(n => {
+                const o = document.createElement('option');
+                o.value = n; o.textContent = n;
+                vsel.appendChild(o);
+            });
+
+            // Head dropdown
+            const hsel = document.getElementById('f-head');
+            const heads = [...new Set(vouchers.map(v => v.headCode).filter(Boolean))].sort();
+            heads.forEach(h => {
+                const o = document.createElement('option');
+                o.value = h; o.textContent = h;
+                hsel.appendChild(o);
+            });
+        }
+
+        function applyFilters() {
+            const year = document.getElementById('f-year').value;
+            const vendor = document.getElementById('f-vendor').value;
+            const head = document.getElementById('f-head').value;
+            const from = document.getElementById('f-from').value;
+            const to = document.getElementById('f-to').value;
+
+            let data = getVouchers();
+
+            if (year) data = data.filter(v => (v.year || '') === year);
+            if (vendor) data = data.filter(v => v.vendorName === vendor);
+            if (head) data = data.filter(v => v.headCode === head);
+            if (from) data = data.filter(v => v.billDate && v.billDate >= from);
+            if (to) data = data.filter(v => v.billDate && v.billDate <= to);
+
+            renderTable(data);
+
+            // Filter badge
+            const active = [year, vendor, head, from, to].filter(Boolean).length;
+            document.getElementById('filter-badge').textContent = active > 0 ? `${active} filter${active > 1 ? 's' : ''} active` : '';
+
+            // Print subtitle
+            const parts = [];
+            if (year) parts.push('Year: ' + year);
+            if (vendor) parts.push('Vendor: ' + vendor);
+            if (head) parts.push('Head: ' + head);
+            if (from) parts.push('From: ' + fmtDate(from));
+            if (to) parts.push('To: ' + fmtDate(to));
+            document.getElementById('print-subtitle').textContent = parts.length ? parts.join(' | ') : 'All Records';
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('report-body');
+            const tfoot = document.getElementById('report-foot');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('row-count').textContent = data.length + ' record' + (data.length !== 1 ? 's' : '');
+
+            // Stats
+            const totalGross = data.reduce((s, v) => s + parseFloat(v.grossAmount || 0), 0);
+            const totalGst = data.reduce((s, v) => s + parseFloat(v.gstAmount || 0), 0);
+            const totalIt = data.reduce((s, v) => s + parseFloat(v.itAmount || 0), 0);
+            const totalNet = data.reduce((s, v) => s + parseFloat(v.netAmount || 0), 0);
+            const totalDeduct = totalGst + totalIt;
+
+            document.getElementById('s-count').textContent = data.length;
+            document.getElementById('s-gross').textContent = fmt(totalGross);
+            document.getElementById('s-deduct').textContent = fmt(totalDeduct);
+            document.getElementById('s-net').textContent = fmt(totalNet);
+
+            if (data.length === 0) {
+                tbody.innerHTML = '';
+                tfoot.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+            empty.classList.add('hidden');
+
+            tbody.innerHTML = data.map((v, i) => {
+                const isEven = i % 2 === 0;
+                return `
+                <tr class="ledger-row border-b border-white/5" style="background:${isEven ? 'rgba(255,255,255,0.01)' : 'transparent'}">
+                    <td class="px-4 py-3.5 text-gray-600 font-black text-xs">${String(i + 1).padStart(2, '0')}</td>
+                    <td class="px-4 py-3.5">
+                        <p class="text-white font-bold text-sm">${esc(v.vendorName || 'â€”')}</p>
+                        <p class="text-gray-600 text-[10px] font-semibold mt-0.5">${esc(v.year || '')}</p>
+                    </td>
+                    <td class="px-4 py-3.5 text-gray-400 text-xs font-semibold">${esc(v.billCategory || 'â€”')}</td>
+                    <td class="px-4 py-3.5 text-gray-500 text-[10px] font-bold font-mono">${esc(v.headCode || 'â€”')}</td>
+                    <td class="px-4 py-3.5 text-gray-300 text-xs font-bold font-mono">${esc(v.billNumber || 'â€”')}</td>
+                    <td class="px-4 py-3.5 text-gray-400 text-xs font-semibold">${fmtDate(v.billDate)}</td>
+                    <td class="px-4 py-3.5 text-right text-gray-300 text-xs font-bold">${fmt(v.grossAmount)}</td>
+                    <td class="px-4 py-3.5 text-right text-red-400 text-xs font-bold">${fmt(v.gstAmount)}</td>
+                    <td class="px-4 py-3.5 text-right text-red-400 text-xs font-bold">${fmt(v.itAmount)}</td>
+                    <td class="px-4 py-3.5 text-right">
+                        <span class="text-purple-300 font-black text-sm">${fmt(v.netAmount)}</span>
+                    </td>
+                </tr>`;
+            }).join('');
+
+            // Footer totals row
+            tfoot.innerHTML = `
+                <tr class="border-t-2 border-white/20" style="background:rgba(124,58,237,0.1)">
+                    <td colspan="6" class="px-4 py-3 text-purple-300 font-black text-xs uppercase tracking-widest">TOTAL (${data.length} records)</td>
+                    <td class="px-4 py-3 text-right text-green-400 font-black text-sm">${fmt(totalGross)}</td>
+                    <td class="px-4 py-3 text-right text-red-400 font-black text-sm">${fmt(totalGst)}</td>
+                    <td class="px-4 py-3 text-right text-red-400 font-black text-sm">${fmt(totalIt)}</td>
+                    <td class="px-4 py-3 text-right text-purple-300 font-black text-lg">${fmt(totalNet)}</td>
+                </tr>`;
+        }
+
+        function resetFilters() {
+            document.getElementById('f-year').value = localStorage.getItem('kfd_year') || '2025-26';
+            document.getElementById('f-vendor').value = '';
+            document.getElementById('f-head').value = '';
+            document.getElementById('f-from').value = '';
+            document.getElementById('f-to').value = '';
+            applyFilters();
+        }
+
+        // Init
+        populateFilters();
+        applyFilters();
+    </script>
+</body>
+
+</html>
