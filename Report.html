@@ -139,7 +139,7 @@
 
     <!-- Print-only header -->
     <div class="print-header hidden text-center mb-6">
-        <h1 class="text-xl font-black uppercase">Karnataka Forest Department â€” Voucher Report</h1>
+        <h1 class="text-xl font-black uppercase">Karnataka Forest Department Voucher Report</h1>
         <p id="print-subtitle" class="text-sm text-gray-600 mt-1"></p>
     </div>
 
@@ -157,14 +157,14 @@
                 </div>
                 <div>
                     <h1 class="text-2xl font-black text-white tracking-tight">Voucher Report</h1>
-                    <p class="text-purple-400 text-xs font-bold uppercase tracking-[0.25em] mt-0.5">KFD Â· Badami SF
+                    <p class="text-purple-400 text-xs font-bold uppercase tracking-[0.25em] mt-0.5">KFD  Badami SF
                         Range</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
                 <a href="index.html"
                     class="text-xs font-black uppercase text-gray-400 hover:text-white border border-white/10 hover:border-white/30 px-4 py-2.5 rounded-xl transition-all">
-                    â† Back
+                    Back
                 </a>
                 <button onclick="window.print()"
                     class="flex items-center gap-2 px-5 py-2.5 font-black text-xs uppercase rounded-xl text-white transition-all"
@@ -237,16 +237,16 @@
             </div>
             <div class="stat-card">
                 <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total Gross</p>
-                <p class="text-green-400 font-black text-2xl mt-1 stat-val" id="s-gross">â‚¹ 0.00</p>
+                <p class="text-green-400 font-black text-2xl mt-1 stat-val" id="s-gross"> 0.00</p>
             </div>
             <div class="stat-card">
                 <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Total GST + IT</p>
-                <p class="text-red-400 font-black text-2xl mt-1 stat-val" id="s-deduct">â‚¹ 0.00</p>
+                <p class="text-red-400 font-black text-2xl mt-1 stat-val" id="s-deduct"> 0.00</p>
             </div>
             <div class="stat-card"
                 style="border-color: rgba(167,139,250,0.25); background: linear-gradient(135deg,rgba(167,139,250,0.08),rgba(167,139,250,0.02));">
                 <p class="text-purple-400 text-[10px] font-black uppercase tracking-widest">Total Net Paid</p>
-                <p class="text-purple-300 font-black text-2xl mt-1 stat-val" id="s-net">â‚¹ 0.00</p>
+                <p class="text-purple-300 font-black text-2xl mt-1 stat-val" id="s-net"> 0.00</p>
             </div>
         </div>
 
@@ -311,7 +311,7 @@
 
     <script>
         const fmt = n => 'â‚¹ ' + parseFloat(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-        const fmtDate = d => d ? new Date(d).toLocaleDateString('en-GB') : 'â€”';
+        const fmtDate = d => d ? new Date(d).toLocaleDateString('en-GB') : '”';
         const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
         const getVouchers = () => JSON.parse(localStorage.getItem('kfd_vouchers') || '[]');
@@ -322,7 +322,7 @@
         function populateFilters() {
             const vouchers = getVouchers();
 
-            // Year filter â€” pre-select global year
+            // Year filter ” pre-select global year
             const globalYear = localStorage.getItem('kfd_year') || '2025-26';
             const ysel = document.getElementById('f-year');
             for (let i = 0; i < ysel.options.length; i++) {
@@ -411,12 +411,12 @@
                 <tr class="ledger-row border-b border-white/5" style="background:${isEven ? 'rgba(255,255,255,0.01)' : 'transparent'}">
                     <td class="px-4 py-3.5 text-gray-600 font-black text-xs">${String(i + 1).padStart(2, '0')}</td>
                     <td class="px-4 py-3.5">
-                        <p class="text-white font-bold text-sm">${esc(v.vendorName || 'â€”')}</p>
+                        <p class="text-white font-bold text-sm">${esc(v.vendorName || '”')}</p>
                         <p class="text-gray-600 text-[10px] font-semibold mt-0.5">${esc(v.year || '')}</p>
                     </td>
-                    <td class="px-4 py-3.5 text-gray-400 text-xs font-semibold">${esc(v.billCategory || 'â€”')}</td>
-                    <td class="px-4 py-3.5 text-gray-500 text-[10px] font-bold font-mono">${esc(v.headCode || 'â€”')}</td>
-                    <td class="px-4 py-3.5 text-gray-300 text-xs font-bold font-mono">${esc(v.billNumber || 'â€”')}</td>
+                    <td class="px-4 py-3.5 text-gray-400 text-xs font-semibold">${esc(v.billCategory || '”')}</td>
+                    <td class="px-4 py-3.5 text-gray-500 text-[10px] font-bold font-mono">${esc(v.headCode || '”')}</td>
+                    <td class="px-4 py-3.5 text-gray-300 text-xs font-bold font-mono">${esc(v.billNumber || '”')}</td>
                     <td class="px-4 py-3.5 text-gray-400 text-xs font-semibold">${fmtDate(v.billDate)}</td>
                     <td class="px-4 py-3.5 text-right text-gray-300 text-xs font-bold">${fmt(v.grossAmount)}</td>
                     <td class="px-4 py-3.5 text-right text-red-400 text-xs font-bold">${fmt(v.gstAmount)}</td>
@@ -452,5 +452,6 @@
         applyFilters();
     </script>
 </body>
+
 
 </html>
