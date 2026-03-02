@@ -348,32 +348,61 @@
 
     <script>
         window.onload = function () {
-            const v = JSON.parse(localStorage.getItem('kfd_last_print'));
-            if (v) {
-                document.getElementById('o-category').innerText = v.billCategory.split(' ')[0] || 'GEN';
-                document.getElementById('o-year').innerText = v.year;
-                document.getElementById('o-date').innerText = new Date(v.billDate).toLocaleDateString('en-GB');
-                document.getElementById('o-year2').innerText = v.year;
-                document.getElementById('o-head1').innerText = v.budgetHeadCode;
-                document.getElementById('o-year3').innerText = v.year;
-                document.getElementById('o-year4').innerText = v.year;
-                document.getElementById('o-head2').innerText = v.budgetHeadCode;
-                document.getElementById('o-vendor1').innerText = v.vendorName;
-                document.getElementById('o-vendor2').innerText = v.vendorName;
-                document.getElementById('o-year5').innerText = v.year;
-                document.getElementById('o-head3').innerText = v.budgetHeadCode;
-                document.getElementById('o-vendor3').innerText = v.vendorName;
-                document.getElementById('o-vendor4').innerText = v.vendorName;
-                document.getElementById('o-vendor5').innerText = v.vendorName;
-                document.getElementById('o-particular').innerText = v.billCategory;
-                document.getElementById('o-vendorid').innerText = v.receiptId;
-                document.getElementById('o-net1').innerText = v.netAmount;
-                document.getElementById('o-gst-rate').innerText = v.gstRate || '2';
-                document.getElementById('o-gst').innerText = v.gstVal || '0.00';
-                document.getElementById('o-it-rate').innerText = v.itRate || '2';
-                document.getElementById('o-it').innerText = v.itVal || '0.00';
-                document.getElementById('o-net2').innerText = v.netAmount;
+            // Read data from URL query parameters (sent by Bill Entry Form)
+            const params = new URLSearchParams(window.location.search);
+
+            const vendorName = params.get('vendorName') || '---';
+            const receiptId = params.get('vendorId') || '---';
+            const headCode = params.get('headCode') || '---';
+            const year = params.get('year') || '---';
+            const billDate = params.get('billDate') || '';
+            const billCategory = params.get('billCategory') || '---';
+            const netAmount = params.get('net') || '0.00';
+            const gstVal = params.get('gst') || '0.00';
+            const gstRate = params.get('gstRate') || '0';
+            const itVal = params.get('it') || '0.00';
+            const itRate = params.get('itRate') || '0';
+
+            // Format date as DD/MM/YYYY
+            let formattedDate = '';
+            if (billDate) {
+                try { formattedDate = new Date(billDate).toLocaleDateString('en-GB'); }
+                catch (e) { formattedDate = billDate; }
             }
+
+            // Category short code for header number (first word)
+            const categoryCode = billCategory.split(' ')[0] || 'GEN';
+
+            // Fill all placeholders
+            document.getElementById('o-category').innerText = categoryCode;
+            document.getElementById('o-year').innerText = year;
+            document.getElementById('o-date').innerText = formattedDate;
+
+            document.getElementById('o-year2').innerText = year;
+            document.getElementById('o-head1').innerText = headCode;
+
+            document.getElementById('o-year3').innerText = year;
+
+            document.getElementById('o-year4').innerText = year;
+            document.getElementById('o-head2').innerText = headCode;
+            document.getElementById('o-vendor1').innerText = vendorName;
+            document.getElementById('o-vendor2').innerText = vendorName;
+
+            document.getElementById('o-year5').innerText = year;
+            document.getElementById('o-head3').innerText = headCode;
+            document.getElementById('o-vendor3').innerText = vendorName;
+            document.getElementById('o-vendor4').innerText = vendorName;
+
+            document.getElementById('o-vendor5').innerText = vendorName;
+            document.getElementById('o-particular').innerText = billCategory;
+            document.getElementById('o-vendorid').innerText = receiptId;
+            document.getElementById('o-net1').innerText = netAmount;
+
+            document.getElementById('o-gst-rate').innerText = gstRate;
+            document.getElementById('o-gst').innerText = gstVal;
+            document.getElementById('o-it-rate').innerText = itRate;
+            document.getElementById('o-it').innerText = itVal;
+            document.getElementById('o-net2').innerText = netAmount;
         };
     </script>
 
