@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Office Order Copy - Unicode</title>
+    <!-- Google Fonts link with all weights -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700;900&display=swap');
+        /* CSS Reset for correct font rendering */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Kannada', sans-serif !important;
+            font-weight: 400; /* Standard weight by default */
+        }
 
         @media print {
-            .no-print { display: none; }
+            .no-print { display: none !important; }
             @page { size: A4 portrait; margin: 15mm 20mm; }
             .container { border: none !important; box-shadow: none !important; width: 100% !important; padding: 0 !important; }
+            body { background: white !important; }
         }
 
         body {
-            font-family: 'Noto Sans Kannada', sans-serif;
+            font-family: 'Noto Sans Kannada', sans-serif !important;
             background-color: #f0f2f5;
             color: black;
-            line-height: 1.8;
+            line-height: 1.6;
             margin: 0;
             padding: 40px;
+            font-size: 12px; /* Base font size 12px */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
@@ -27,7 +40,7 @@
             width: 210mm;
             min-height: 297mm;
             margin: 0 auto;
-            padding: 25mm;
+            padding: 20mm;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             box-sizing: border-box;
             border: 1px solid #ddd;
@@ -35,62 +48,70 @@
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 5px double black;
-            padding-bottom: 15px;
+            margin-bottom: 25px;
+            border-bottom: 3px double black;
+            padding-bottom: 10px;
         }
 
-        .header h1 { font-size: 34px; font-weight: 900; margin: 0; letter-spacing: 1px; }
-        .header h2 { font-size: 18px; font-weight: 700; margin: 8px 0 0 0; text-transform: uppercase; }
+        /* Header above 20px */
+        .header h1 { font-size: 26px; font-weight: 700; margin: 0; letter-spacing: 1px; }
+        .header h2 { font-size: 20px; font-weight: 600; margin: 5px 0 0 0; text-transform: uppercase; }
 
         .info-row {
             display: flex;
             justify-content: space-between;
-            font-weight: 900;
-            font-size: 15px;
-            margin-bottom: 35px;
+            font-size: 12px;
+            margin-bottom: 30px;
         }
 
-        .title-box { text-align: center; margin-bottom: 45px; }
-        .title-box h3 { font-size: 26px; font-weight: 900; text-decoration: underline; text-transform: uppercase; }
+        .title-box { text-align: center; margin-bottom: 35px; }
+        /* Memorandum title at 20px */
+        .title-box h3 { font-size: 20px; font-weight: 700; text-decoration: underline; text-transform: uppercase; }
 
-        .content-section { margin-bottom: 35px; text-align: justify; }
-        .label { font-weight: 900; min-width: 110px; display: inline-block; vertical-align: top; font-size: 18px; }
-        .text { display: inline-block; width: calc(100% - 120px); font-weight: 800; font-size: 18px; }
-
-        .preamble-title { font-weight: 900; font-size: 20px; margin-bottom: 15px; text-decoration: underline; }
+        .content-section { margin-bottom: 25px; text-align: justify; }
         
+        /* विषय : and ಉಲ್ಲೇಖ : made bold */
+        .label { font-weight: 700; min-width: 80px; display: inline-block; vertical-align: top; font-size: 12px; }
+        .text { display: inline-block; width: calc(100% - 90px); font-size: 12px; }
+
+        /* ಪ್ರಸ್ತಾವನೆ : made bold */
+        .preamble-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; text-decoration: underline; }
+        
+        /* : ಆದೇಶ : made bold and center */
+        .order-title { font-weight: 700; font-size: 16px; text-align: center; margin: 20px 0 10px 0; text-decoration: underline; }
+
         .kannada-paragraph {
-            text-indent: 60px;
-            font-size: 19px;
-            font-weight: 700;
-            line-height: 2;
+            text-indent: 40px;
+            font-size: 12px;
+            line-height: 1.8;
             text-align: justify;
         }
 
-        .bold { font-weight: 900; text-decoration: underline; }
+        .bold-span { font-weight: 700; }
 
-        table { width: 100%; border-collapse: collapse; margin: 30px 0; border: 3px solid black; }
-        th, td { border: 2px solid black; padding: 12px; text-align: center; font-weight: 800; font-size: 17px; }
-        th { background-color: #f3f4f6; font-weight: 900; text-transform: uppercase; font-size: 13px; }
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; border: 1.5px solid black; }
+        th, td { border: 1px solid black; padding: 8px; text-align: center; font-size: 12px; }
+        th { background-color: #f3f4f6; font-weight: 700; text-transform: uppercase; }
 
         .blank-space { 
             display: inline-block; 
-            width: 100px; 
-            border-bottom: 2.5px dotted black; 
-            height: 18px; 
+            width: 80px; 
+            border-bottom: 1.5px dotted black; 
+            height: 14px; 
         }
 
-        .signature-section { text-align: right; margin-top: 80px; }
-        .sig-name { font-size: 22px; font-weight: 900; text-decoration: underline; text-transform: uppercase; margin-bottom: 5px; }
-        .sig-dept { font-size: 16px; font-weight: 700; text-transform: uppercase; }
+        .signature-section { text-align: right; margin-top: 60px; }
+        .sig-name { font-size: 16px; font-weight: 700; text-decoration: underline; text-transform: uppercase; margin-bottom: 3px; }
+        .sig-dept { font-size: 12px; font-weight: 600; text-transform: uppercase; }
 
-        .copy-to { margin-top: 60px; border-top: 2px solid black; padding-top: 15px; font-size: 16px; font-weight: 900; }
+        .copy-to { margin-top: 50px; border-top: 1.5px solid black; padding-top: 15px; font-size: 12px; }
+        .copy-to-title { font-weight: 700; text-decoration: underline; margin-bottom: 8px; }
 
         .btn-print {
             position: fixed; top: 30px; right: 30px; background: #000; color: #fff;
-            padding: 15px 35px; border-radius: 50px; font-weight: 900; cursor: pointer;
+            padding: 12px 30px; border-radius: 50px; font-weight: 700; cursor: pointer;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2); border: none; z-index: 1000;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -117,13 +138,13 @@
 
         <!-- Subject & Ref -->
         <div class="content-section">
-            <div style="margin-bottom: 15px;">
+            <div style="margin-bottom: 10px;">
                 <span class="label">ವಿಷಯ :</span>
-                <span class="text"><span id="o-year2"></span> ನೇ ಸಾಲಿಗೆ ಲೆಕ್ಕಶೀರ್ಷಿಕೆ "<span class="bold" id="o-head1"></span>" ವೆಚ್ಚಯೋಜನೆ ಅಡಿಯಲ್ಲಿ ಸಲ್ಲಿಸಿದ ಸಾದಿಲ್ವಾರ ಬಿಲ್ಲಿಗೆ ಮಂಜೂರಾತಿ ನೀಡುವ ಕುರಿತು.</span>
+                <span class="text"><span id="o-year2"></span> ನೇ ಸಾಲಿಗೆ ಲೆಕ್ಕಶೀರ್ಷಿಕೆ "<span class="bold-span" id="o-head1"></span>" ವೆಚ್ಚಯೋಜನೆ ಅಡಿಯಲ್ಲಿ ಸಲ್ಲಿಸಿದ ಸಾದಿಲ್ವಾರ ಬಿಲ್ಲಿಗೆ ಮಂಜೂರಾತಿ ನೀಡುವ ಕುರಿತು.</span>
             </div>
             <div>
                 <span class="label">ಉಲ್ಲೇಖ :</span>
-                <span class="text" style="font-size: 15px; font-style: italic;">"ಉಪ ಅರಣ್ಯ ಸಂರಕ್ಷಣಾಧಿಕಾರಿಗಳು, ಸಾಮಾಜಿಕ ವಿಭಾಗ, ಬಾಗಲಕೋಟರವರ ಅಧಿಕೃತ ಜ್ಞಾಪನಾ ಪತ್ರ ಸಂಖ್ಯೆ: ಎ2/ಇಎಸ್‌ಟಿ/ಸಾಅ/ಜಿಪಂಬಾ/ಅಬಿ/ಸಿಆರ್-<span id="o-year3"></span>"</span>
+                <span class="text" style="font-style: italic;">"ಉಪ ಅರಣ್ಯ ಸಂರಕ್ಷಣಾಧಿಕಾರಿಗಳು, ಸಾಮಾಜಿಕ ವಿಭಾಗ, ಬಾಗಲಕೋಟರವರ ಅಧಿಕೃತ ಜ್ಞಾಪನಾ ಪತ್ರ ಸಂಖ್ಯೆ: ಎ2/ಇಎಸ್‌ಟಿ/ಸಾಅ/ಜಿಪಂಬಾ/ಅಬಿ/ಸಿಆರ್-<span id="o-year3"></span>"</span>
             </div>
         </div>
 
@@ -132,20 +153,20 @@
             <div class="preamble-title">ಪ್ರಸ್ತಾವನೆ :</div>
             <p class="kannada-paragraph">
                 ಮೇಲಿನ ಪ್ರಸ್ಥಾವಣೆಯಲ್ಲಿ ವಿವರಿಸಿದಂತೆ <span id="o-year4"></span> ನೇ ಸಾಲಿಗೆ ಲೆಕ್ಕಶೀರ್ಷಿಕೆ 
-                <span class="bold" id="o-head2"></span> ರಡಿಯಲ್ಲಿ ಸಾಮಾಜಿಕ ಅರಣ್ಯ ವಲಯ ಬಾದಾಮಿ 
-                ವಲಯದಲ್ಲಿ <span class="bold" id="o-vendor1"></span> ಬಿಲ್ಲನ್ನು ತಯಾರಿಸಿದ್ದು 
-                <span class="bold" id="o-vendor2"></span> ಇವರಿಗೆ ಪಾವತಿಸಲು ಈ ಕೆಳಗಿನಂತೆ ಅನುಮೋದನೆ ನೀಡಲಾಗಿದೆ.
+                <span class="bold-span" id="o-head2"></span> ರಡಿಯಲ್ಲಿ ಸಾಮಾಜಿಕ ಅರಣ್ಯ ವಲಯ ಬಾದಾಮಿ 
+                ವಲಯದಲ್ಲಿ <span class="bold-span" id="o-vendor1"></span> ಬಿಲ್ಲನ್ನು ತಯಾರಿಸಿದ್ದು 
+                <span class="bold-span" id="o-vendor2"></span> ಇವರಿಗೆ ಪಾವತಿಸಲು ಈ ಕೆಳಗಿನಂತೆ ಅನುಮೋದನೆ ನೀಡಲಾಗಿದೆ.
             </p>
         </div>
 
         <!-- Order Section -->
         <div class="content-section">
-            <div class="preamble-title"> : ಆದೇಶ :</div>
+            <div class="order-title"> : ಆದೇಶ :</div>
             <p class="kannada-paragraph">
                 ಮೇಲಿನ ಪ್ರಸ್ಥಾವಣೆಯಲ್ಲಿ ವಿವರಿಸಿದಂತೆ <span id="o-year5"></span> ನೇ ಸಾಲಿಗೆ ಲೆಕ್ಕಶೀರ್ಷಿಕೆ 
                 <span id="o-head3"></span> ರಡಿಯಲ್ಲಿ ಸಾಮಾಜಿಕ ಅರಣ್ಯ ವಲಯ ಬಾದಾಮಿ 
-                ವಲಯದಲ್ಲಿ <span class="bold" id="o-vendor3"></span> ಬಿಲ್ಲನ್ನು ತಯಾರಿಸಿದ್ದು 
-                <span class="bold" id="o-vendor4"></span> ಇವರಿಗೆ ಪಾವತಿಸಲು ಈ ಕೆಳಗಿನಂತೆ ಅನುಮೋದನೆ ನೀಡಲಾಗಿದೆ.
+                ವಲಯದಲ್ಲಿ <span class="bold-span" id="o-vendor3"></span> ಬಿಲ್ಲನ್ನು ತಯಾರಿಸಿದ್ದು 
+                <span class="bold-span" id="o-vendor4"></span> ಇವರಿಗೆ ಪಾವತಿಸಲು ಈ ಕೆಳಗಿನಂತೆ ಅನುಮೋದನೆ ನೀಡಲಾಗಿದೆ.
             </p>
         </div>
 
@@ -161,31 +182,31 @@
                 </tr>
             </thead>
             <tbody>
-                <tr style="height: 120px;">
+                <tr style="height: 100px;">
                     <td>01</td>
-                    <td style="text-align: left; padding-left: 20px;">
-                        <span class="bold" id="o-vendor5"></span> - <span id="o-particular"></span>
+                    <td style="text-align: left; padding-left: 15px;">
+                        <span class="bold-span" id="o-vendor5"></span> - <span id="o-particular"></span>
                     </td>
                     <td>
                         <span id="o-vendorid"></span>
                     </td>
-                    <td style="font-size: 22px;">₹ <span id="o-net1"></span></td>
+                    <td style="font-size: 14px;">₹ <span id="o-net1"></span></td>
                     <td>
-                        <br><br>
+                        <br>
                         <span class="blank-space"></span>
                     </td>
                 </tr>
-                <tr style="height: 44px; background-color: #f9fafb;">
-                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">GST (<span id="o-gst-rate"></span>%)</td>
-                    <td colspan="2" style="font-size: 18px; text-align: left; padding-left: 30px;">₹ <span id="o-gst"></span></td>
+                <tr style="background-color: #f9fafb;">
+                    <td colspan="3" style="text-align: right; padding-right: 20px; font-weight: 700;">GST (<span id="o-gst-rate"></span>%)</td>
+                    <td colspan="2" style="text-align: left; padding-left: 20px;">₹ <span id="o-gst"></span></td>
                 </tr>
-                <tr style="height: 44px; background-color: #f9fafb;">
-                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">IT (<span id="o-it-rate"></span>%)</td>
-                    <td colspan="2" style="font-size: 18px; text-align: left; padding-left: 30px;">₹ <span id="o-it"></span></td>
+                <tr style="background-color: #f9fafb;">
+                    <td colspan="3" style="text-align: right; padding-right: 20px; font-weight: 700;">IT (<span id="o-it-rate"></span>%)</td>
+                    <td colspan="2" style="text-align: left; padding-left: 20px;">₹ <span id="o-it"></span></td>
                 </tr>
-                <tr style="height: 60px; background-color: #f9fafb;">
-                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">ಒಟ್ಟು ಮಂಜೂರಾದ ನಿವ್ವಳ ಮೊತ್ತ</td>
-                    <td colspan="2" style="font-size: 22px; text-align: left; padding-left: 30px; font-weight: 900;">₹ <span id="o-net2"></span></td>
+                <tr style="background-color: #f9fafb; height: 40px;">
+                    <td colspan="3" style="text-align: right; padding-right: 20px; font-weight: 700;">ಒಟ್ಟು ಮಂಜೂರಾದ ನಿವ್ವಳ ಮೊತ್ತ</td>
+                    <td colspan="2" style="text-align: left; padding-left: 20px; font-weight: 700;">₹ <span id="o-net2"></span></td>
                 </tr>
             </tbody>
         </table>
@@ -198,14 +219,13 @@
 
         <!-- Copy To -->
         <div class="copy-to">
-            <p style="text-decoration: underline; margin-bottom: 12px; font-size: 18px;">ಪ್ರತಿಯನ್ನು:</p>
+            <p class="copy-to-title">ಪ್ರತಿಯನ್ನು:</p>
             <p>1. ಉಪ ಖಜಾನೆ ಅಧಿಕಾರಿಗಳು, ಬಾದಾಮಿ ಇವರಿಗೆ ಮಾಹಿತಿಗಾಗಿ.</p>
             <p>2. ಕಚೇರಿ ಕಡತಕ್ಕೆ.</p>
         </div>
     </div>
 
     <script>
-        // Logic to populate data from localStorage
         window.onload = function() {
             const v = JSON.parse(localStorage.getItem('kfd_last_print'));
             if(v) {
