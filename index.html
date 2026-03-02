@@ -347,6 +347,48 @@
         </div>
     </div>
 
+    <!-- Print Options Modal -->
+    <div id="print-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-[#1e293b] border border-white/10 rounded-3xl p-8 w-full max-w-sm shadow-2xl">
+            <h3 class="text-white font-black text-base uppercase tracking-widest mb-2">Print Options</h3>
+            <p class="text-gray-500 text-[10px] font-semibold uppercase tracking-widest mb-6">Choose print format</p>
+            <div class="space-y-3">
+                <button onclick="openPrint('voucher')"
+                    class="w-full p-4 bg-black text-white rounded-2xl font-black uppercase text-xs flex items-center gap-3 shadow-2xl hover:bg-gray-800 transition-all active:scale-95">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z" />
+                    </svg>
+                    Print Voucher &amp; Order (RFO)
+                </button>
+                <button onclick="openPrint('dcf')"
+                    class="w-full p-4 bg-blue-700 text-white rounded-2xl font-black uppercase text-xs flex items-center gap-3 shadow hover:bg-blue-800 transition-all active:scale-95">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    DCF Sign Mode
+                </button>
+                <button onclick="openPrint('order')"
+                    class="w-full p-4 bg-purple-700 text-white rounded-2xl font-black uppercase text-xs flex items-center gap-3 shadow hover:bg-purple-800 transition-all active:scale-95">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Order Copy Only
+                </button>
+            </div>
+            <button onclick="closePrintModal()"
+                class="w-full mt-4 py-3 bg-white/5 hover:bg-white/10 text-gray-400 font-black rounded-2xl uppercase text-xs tracking-widest transition-all">
+                Cancel
+            </button>
+        </div>
+    </div>
+
     <script>
         let editIdx = -1;
 
@@ -417,6 +459,8 @@
             }).join('');
         }
 
+        let _printParams = '';
+
         function printRecord(i) {
             const v = getVouchers()[i];
             if (!v) return;
@@ -441,7 +485,24 @@
             p.set('vr_no', v.vr_no || '');
             p.set('fnb_no', v.fnb_no || '');
             p.set('p_no', v.p_no || '');
-            window.open(`Voucher Format (FAC 63).html?${p.toString()}&dcf=false`, '_blank');
+            _printParams = p.toString();
+            // Show print options modal
+            const m = document.getElementById('print-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+
+        function openPrint(type) {
+            closePrintModal();
+            if (type === 'voucher') window.open(`Voucher Format (FAC 63).html?${_printParams}&dcf=false`, '_blank');
+            else if (type === 'dcf') window.open(`Voucher Format (FAC 63).html?${_printParams}&dcf=true`, '_blank');
+            else if (type === 'order') window.open(`Office Order Copy.html?${_printParams}`, '_blank');
+        }
+
+        function closePrintModal() {
+            const m = document.getElementById('print-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
         }
 
         function deleteRecord(i) {
@@ -490,9 +551,12 @@
             renderLedger();
         }
 
-        // Close modal on backdrop click
+        // Close modals on backdrop click
         document.getElementById('edit-modal').addEventListener('click', function (e) {
             if (e.target === this) closeModal();
+        });
+        document.getElementById('print-modal').addEventListener('click', function (e) {
+            if (e.target === this) closePrintModal();
         });
 
         renderLedger();
