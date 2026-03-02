@@ -1,143 +1,25 @@
 <!DOCTYPE html>
 <html lang="kn">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office Order Copy - KFD</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700;900&display=swap"
-        rel="stylesheet">
+    <title>Office Order Copy - Unicode</title>
     <style>
-        /* Print Settings */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700;900&display=swap');
+
         @media print {
-            body {
-                margin: 0;
-                padding: 0;
-                background: white !important;
-            }
-
-            .no-print {
-                display: none !important;
-            }
-
-            @page {
-                size: A4 portrait;
-                margin: 6mm 8mm;
-            }
-
-            .container {
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                width: 100% !important;
-                min-height: unset !important;
-                max-height: 277mm !important;
-                overflow: hidden !important;
-            }
-
-            /* Tighten all spacing for 1-page fit */
-            .header {
-                margin-bottom: 6px !important;
-                padding-bottom: 4px !important;
-            }
-
-            .header h1 {
-                font-size: 18px !important;
-            }
-
-            .header h2 {
-                font-size: 11px !important;
-            }
-
-            .info-row {
-                margin-bottom: 6px !important;
-                font-size: 10px !important;
-            }
-
-            .title-box {
-                margin-bottom: 6px !important;
-            }
-
-            .title-box h3 {
-                font-size: 14px !important;
-            }
-
-            .content-section {
-                margin-bottom: 6px !important;
-            }
-
-            .label {
-                font-size: 11px !important;
-                min-width: 80px !important;
-            }
-
-            .text {
-                font-size: 11px !important;
-            }
-
-            .preamble-title {
-                font-size: 11px !important;
-                margin-bottom: 4px !important;
-            }
-
-            .kannada-paragraph {
-                font-size: 11px !important;
-                line-height: 1.5 !important;
-            }
-
-            table {
-                font-size: 10px !important;
-                margin-bottom: 6px !important;
-            }
-
-            table th,
-            table td {
-                padding: 3px 6px !important;
-            }
-
-            tr[style*="height: 120px"] {
-                height: 60px !important;
-            }
-
-            tr[style*="height: 44px"] {
-                height: 24px !important;
-            }
-
-            tr[style*="height: 60px"] {
-                height: 28px !important;
-            }
-
-            .signature-section {
-                margin-top: 55px !important;
-            }
-
-            .sig-name {
-                font-size: 14px !important;
-                line-height: 1.2 !important;
-            }
-
-            .sig-dept {
-                font-size: 14px !important;
-                margin-top: 0px !important;
-                line-height: 1.2 !important;
-            }
-
-            .copy-to {
-                margin-top: 50px !important;
-                padding-top: 6px !important;
-                font-size: 14px !important;
-            }
+            .no-print { display: none; }
+            @page { size: A4 portrait; margin: 15mm 20mm; }
+            .container { border: none !important; box-shadow: none !important; width: 100% !important; padding: 0 !important; }
         }
 
         body {
             font-family: 'Noto Sans Kannada', sans-serif;
-            background-color: #f3f4f6;
+            background-color: #f0f2f5;
             color: black;
-            line-height: 1.6;
+            line-height: 1.8;
             margin: 0;
-            padding: 20px;
+            padding: 40px;
         }
 
         .container {
@@ -145,259 +27,125 @@
             width: 210mm;
             min-height: 297mm;
             margin: 0 auto;
-            padding: 20mm;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 25mm;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             box-sizing: border-box;
+            border: 1px solid #ddd;
         }
 
         .header {
             text-align: center;
             margin-bottom: 30px;
             border-bottom: 5px double black;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
-        .header h1 {
-            font-size: 24px;
-            font-weight: 900;
-            margin: 0;
-        }
-
-        .header h2 {
-            font-size: 14px;
-            font-weight: 700;
-            margin: 5px 0 0 0;
-            text-transform: uppercase;
-        }
+        .header h1 { font-size: 34px; font-weight: 900; margin: 0; letter-spacing: 1px; }
+        .header h2 { font-size: 18px; font-weight: 700; margin: 8px 0 0 0; text-transform: uppercase; }
 
         .info-row {
             display: flex;
             justify-content: space-between;
             font-weight: 900;
-            font-size: 12px;
-            margin-bottom: 30px;
-        }
-
-        .title-box {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .title-box h3 {
-            font-size: 20px;
-            font-weight: 900;
-            text-decoration: underline;
-            text-transform: uppercase;
-        }
-
-        .content-section {
+            font-size: 15px;
             margin-bottom: 35px;
+        }
+
+        .title-box { text-align: center; margin-bottom: 45px; }
+        .title-box h3 { font-size: 26px; font-weight: 900; text-decoration: underline; text-transform: uppercase; }
+
+        .content-section { margin-bottom: 35px; text-align: justify; }
+        .label { font-weight: 900; min-width: 110px; display: inline-block; vertical-align: top; font-size: 18px; }
+        .text { display: inline-block; width: calc(100% - 120px); font-weight: 800; font-size: 18px; }
+
+        .preamble-title { font-weight: 900; font-size: 20px; margin-bottom: 15px; text-decoration: underline; }
+        
+        .kannada-paragraph {
+            text-indent: 60px;
+            font-size: 19px;
+            font-weight: 700;
+            line-height: 2;
             text-align: justify;
         }
 
-        .label {
-            font-weight: 900;
-            min-width: 100px;
-            display: inline-block;
-            font-size: 14px;
+        .bold { font-weight: 900; text-decoration: underline; }
+
+        table { width: 100%; border-collapse: collapse; margin: 30px 0; border: 3px solid black; }
+        th, td { border: 2px solid black; padding: 12px; text-align: center; font-weight: 800; font-size: 17px; }
+        th { background-color: #f3f4f6; font-weight: 900; text-transform: uppercase; font-size: 13px; }
+
+        .blank-space { 
+            display: inline-block; 
+            width: 100px; 
+            border-bottom: 2.5px dotted black; 
+            height: 18px; 
         }
 
-        .text {
-            font-size: 14px;
-        }
+        .signature-section { text-align: right; margin-top: 80px; }
+        .sig-name { font-size: 22px; font-weight: 900; text-decoration: underline; text-transform: uppercase; margin-bottom: 5px; }
+        .sig-dept { font-size: 16px; font-weight: 700; text-transform: uppercase; }
 
-        .bold {
-            font-weight: 900;
-        }
-
-        .preamble-title {
-            font-weight: 900;
-            font-size: 14px;
-            margin-bottom: 8px;
-            text-decoration: underline;
-        }
-
-        .kannada-paragraph {
-            font-size: 14px;
-            line-height: 1.9;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            font-size: 13px;
-        }
-
-        table th,
-        table td {
-            border: 2px solid black;
-            padding: 8px 12px;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        table th {
-            background-color: #f3f4f6;
-            font-weight: 900;
-        }
-
-        .blank-space {
-            display: inline-block;
-            width: 120px;
-            border-bottom: 1px solid #999;
-        }
-
-        .signature-section {
-            margin-top: 80px;
-            text-align: right;
-        }
-
-        .sig-name {
-            font-size: 18px;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-decoration: underline;
-            margin: 0;
-        }
-
-        .sig-dept {
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
-        .copy-to {
-            margin-top: 80px;
-            border-top: 2px solid black;
-            padding-top: 20px;
-            font-size: 14px;
-            font-weight: 900;
-        }
+        .copy-to { margin-top: 60px; border-top: 2px solid black; padding-top: 15px; font-size: 16px; font-weight: 900; }
 
         .btn-print {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: black;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-            border: none;
-            z-index: 100;
+            position: fixed; top: 30px; right: 30px; background: #000; color: #fff;
+            padding: 15px 35px; border-radius: 50px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); border: none; z-index: 1000;
         }
     </style>
 </head>
-
 <body>
 
-    <div class="no-print" style="position:fixed;top:14px;right:20px;display:flex;gap:10px;z-index:200;">
-        <a href="Bill Entry Form.html"
-            style="background:#e5e7eb;color:#111;padding:10px 20px;border-radius:50px;font-weight:900;font-size:13px;text-decoration:none;">&#8592;
-            Back to Bill Entry</a>
-        <button class="btn-print" onclick="window.print()">&#128424; PRINT ORDER COPY</button>
-    </div>
+    <button class="btn-print no-print" onclick="window.print()">PRINT ORDER COPY</button>
 
     <div class="container">
         <!-- Header Section -->
         <div class="header">
-            <h1>&#3221;&#3248;&#3149;&#3240;&#3262;&#3240;&#3221; &#3238;&#3248;&#3178;&#3149;&#3240;&#3267;</h1>
-            <h2>&#3220;&#3248;&#3194;&#3267; &#3238;&#3248;&#3178;&#3149;&#3240;&#3267;
-                &#3238;&#3217;&#3223;&#3221;&#3262;&#3248;&#3222;, &#3218;&#3262;&#3215;&#3262;&#3185;&#3222;
-                &#3238;&#3248;&#3178;&#3149;&#3240;&#3267; &#3220;&#3248;&#3194;,
-                &#3215;&#3262;&#3207;&#3262;&#3201;&#3222;</h2>
+            <h1>ಕರ್ನಾಟಕ ಸರ್ಕಾರ</h1>
+            <h2>ವಲಯ ಅರಣ್ಯ ಅಧಿಕಾರಿಗಳ ಕಚೇರಿ, ಸಾಮಾಜಿಕ ಅರಣ್ಯ ವಲಯ, ಬಾದಾಮಿ</h2>
         </div>
 
         <!-- Ref & Date Row -->
         <div class="info-row">
-            <div>&#3224;&#3074;&#3221;&#3149;&#3233;&#3266; :
-                &#3220;&#3238;&#3238;/&#3218;&#3262;&#3238;&#3215;&#3262;/&#3203;&#3222;.&#3218;&#3222;.&#3215;&#3222;./<span
-                    id="o-category"></span>/<span id="o-year"></span></div>
-            <div>&#3207;&#3222;&#3240;&#3262;&#3074;&#3221;: <span id="o-date"></span></div>
+            <div>ಸಂಖ್ಯೆ : ವಅಅ/ಸಾಅಬಾ/ಡಿ.ಸಿ.ಬಿ/<span id="o-category"></span>/<span id="o-year"></span></div>
+            <div>ದಿನಾಂಕ: <span id="o-date"></span></div>
         </div>
 
         <div class="title-box">
-            <h3>&#3221;&#3205;&#3244;&#3249;&#3207; &#3238;&#3217;&#3223;&#3221;&#3262;&#3248;&#3222;
-                &#3185;&#3149;&#3215;&#3262;&#3224;&#3240; &#3224;&#3236;&#3149;&#3248;</h3>
+            <h3>ಕಚೇರಿ ಅಧಿಕೃತ ಜ್ಞಾಪನ ಪತ್ರ</h3>
         </div>
 
         <!-- Subject & Ref -->
         <div class="content-section">
             <div style="margin-bottom: 15px;">
-                <span class="label">&#3220;&#3222;&#3233;&#3267; :</span>
-                <span class="text"><span id="o-year2"></span> &#3240;&#3227; &#3218;&#3262;&#3232;&#3222;&#3221;&#3227;
-                    &#3232;&#3227;&#3221;&#3149;&#3221;&#3236;&#3250;&#3248;&#3149;&#3233;&#3222;&#3227; &quot;<span
-                        class="bold" id="o-head1"></span>&quot;
-                    &#3220;&#3240;&#3149;&#3205;&#3232;&#3267;&#3185;&#3240;
-                    &#3238;&#3232;&#3250;&#3232;&#3228;&#3265;&#3185;&#3240;
-                    &#3218;&#3232;&#3149;&#3232;&#3222;&#3218;&#3232;&#3227;&#3207;
-                    &#3218;&#3262;&#3207;&#3222;&#3232;&#3149;&#3220;&#3262;&#3248;
-                    &#3215;&#3222;&#3232;&#3149;&#3232;&#3222;&#3221;&#3227;
-                    &#3215;&#3218;&#3149;&#3203;&#3221;
-                    &#3221;&#3149;&#3248;&#3222;&#3207;&#3221;.</span>
+                <span class="label">ವಿಷಯ :</span>
+                <span class="text"><span id="o-year2"></span> ನೇ ಸಾಲಿಗೆ ಲೆಕ್ಕಶೀರ್ಷಿಕೆ "<span class="bold" id="o-head1"></span>" ವೆಚ್ಚಯೋಜನೆ ಅಡಿಯಲ್ಲಿ ಸಲ್ಲಿಸಿದ ಸಾದಿಲ್ವಾರ ಬಿಲ್ಲಿಗೆ ಮಂಜೂರಾತಿ ನೀಡುವ ಕುರಿತು.</span>
             </div>
             <div>
-                <span class="label">&#3230;&#3232;&#3149;&#3232;&#3237; :</span>
-                <span class="text" style="font-size: 15px; font-style: italic;">&quot;&#3230;&#3224;
-                    &#3238;&#3248;&#3178;&#3149;&#3240;&#3267;
-                    &#3218;&#3074;&#3248;&#3221;&#3149;&#3233;&#3178;&#3210;&#3217;&#3221;&#3262;&#3248;&#3222;,
-                    &#3218;&#3262;&#3215;&#3262;&#3185;&#3222;
-                    &#3220;&#3222;&#3221;&#3262;&#3221;, &#3215;&#3262;&#3221;&#3232;&#3221;&#3267;&#3240;&#3248;
-                    &#3238;&#3217;&#3223;&#3221;&#3262;&#3248;&#3222;
-                    &#3185;&#3205;&#3244;&#3249;&#3207; &#3185;&#3149;&#3215;&#3262;&#3224;&#3240;&#3262;
-                    &#3224;&#3236;&#3149;&#3248; &#3224;&#3074;&#3221;&#3149;&#3233;&#3267; :
-                    &#3221;2/&#3222;&#3225;/&#3218;&#3262;&#3238;&#3215;&#3262;/&#3185;&#3222;&#3224;&#3074;&#3215;&#3262;/&#3238;&#3215;&#3222;/&#3218;&#3222;&#3224;&#3248;-<span
-                        id="o-year3"></span>&quot;
-                </span>
+                <span class="label">ಉಲ್ಲೇಖ :</span>
+                <span class="text" style="font-size: 15px; font-style: italic;">"ಉಪ ಅರಣ್ಯ ಸಂರಕ್ಷಣಾಧಿಕಾರಿಗಳು, ಸಾಮಾಜಿಕ ವಿಭಾಗ, ಬಾಗಲಕೋಟರವರ ಅಧಿಕೃತ ಜ್ಞಾಪನಾ ಪತ್ರ ಸಂಖ್ಯೆ: ಎ2/ಇಎಸ್‌ಟಿ/ಸಾಅ/ಜಿಪಂಬಾ/ಅಬಿ/ಸಿಆರ್-<span id="o-year3"></span>"</span>
             </div>
         </div>
 
         <!-- Preamble -->
         <div class="content-section">
-            <div class="preamble-title">&#3224;&#3149;&#3248;&#3218;&#3149;&#3248;&#3262;&#3220;&#3240; :</div>
+            <div class="preamble-title">ಪ್ರಸ್ತಾವನೆ :</div>
             <p class="kannada-paragraph">
-                &#3215;&#3227;&#3232;&#3222;&#3240;
-                &#3224;&#3149;&#3248;&#3218;&#3149;&#3245;&#3232;&#3178;&#3149;&#3232;&#3225;&#3266;
-                &#3220;&#3222;&#3220;&#3248;&#3222;&#3218;&#3222;&#3207; <span id="o-year4"></span> &#3240;&#3227;
-                &#3218;&#3262;&#3232;&#3222;&#3221;&#3227;&#3267;
-                &#3232;&#3227;&#3221;&#3149;&#3221;&#3236;&#3250;&#3248;&#3149;&#3233;&#3222;&#3227;
-                <span class="bold" id="o-head2"></span>
-                &#3248;&#3203;&#3222;&#3233;&#3232;&#3149;&#3232;&#3232;&#3228;&#3222;
-                &#3218;&#3262;&#3215;&#3262;&#3185;&#3222; &#3238;&#3248;&#3178;&#3149;&#3240;&#3267;
-                &#3220;&#3248;&#3194; &#3215;&#3262;&#3207;&#3262;&#3201;&#3222;
-                &#3220;&#3248;&#3194;&#3207;&#3232;&#3149;&#3232;&#3228;&#3222; <span class="bold"
-                    id="o-vendor1"></span> &#3215;&#3222;&#3232;&#3149;&#3232;&#3240;&#3149;&#3240;&#3266;
-                &#3236;&#3233;&#3262;&#3248;&#3222;&#3218;&#3222;&#3207;&#3207;&#3266;
-                <span class="bold" id="o-vendor2"></span> &#3222;&#3220;&#3248;&#3222;&#3221;&#3227;
-                &#3224;&#3262;&#3220;&#3236;&#3222;&#3218;&#3232;&#3266; &#3225;&#3267;
-                &#3221;&#3227;&#3232;&#3221;&#3222;&#3240;&#3074; &#3238;&#3240;&#3149;&#3215;&#3267;&#3185;&#3240;
-                &#3215;&#3218;&#3149;&#3203;&#3232;&#3262;&#3221;&#3222;&#3207;&#3267;.
+                ಮೇಲಿನ ಪ್ರಸ್ಥಾವಣೆಯಲ್ಲಿ ವಿವರಿಸಿದಂತೆ <span id="o-year4"></span> ನೇ ಸಾಲಿಗೆ ಲೆಕ್ಕಶೀರ್ಷಿಕೆ 
+                <span class="bold" id="o-head2"></span> ರಡಿಯಲ್ಲಿ ಸಾಮಾಜಿಕ ಅರಣ್ಯ ವಲಯ ಬಾದಾಮಿ 
+                ವಲಯದಲ್ಲಿ <span class="bold" id="o-vendor1"></span> ಬಿಲ್ಲನ್ನು ತಯಾರಿಸಿದ್ದು 
+                <span class="bold" id="o-vendor2"></span> ಇವರಿಗೆ ಪಾವತಿಸಲು ಈ ಕೆಳಗಿನಂತೆ ಅನುಮೋದನೆ ನೀಡಲಾಗಿದೆ.
             </p>
         </div>
 
         <!-- Order Section -->
         <div class="content-section">
-            <div class="preamble-title"> : &#3238;&#3207;&#3267;&#3236; :</div>
+            <div class="preamble-title"> : ಆದೇಶ :</div>
             <p class="kannada-paragraph">
-                &#3215;&#3227;&#3232;&#3222;&#3240;
-                &#3224;&#3149;&#3248;&#3218;&#3149;&#3245;&#3232;&#3178;&#3149;&#3232;&#3225;&#3266;
-                &#3220;&#3222;&#3220;&#3248;&#3222;&#3218;&#3222;&#3207; <span id="o-year5"></span> &#3240;&#3227;
-                &#3218;&#3262;&#3232;&#3222;&#3221;&#3227;&#3267;
-                &#3232;&#3227;&#3221;&#3149;&#3221;&#3236;&#3250;&#3248;&#3149;&#3233;&#3222;&#3227; <span
-                    id="o-head3"></span> &#3248;&#3203;&#3222;&#3233;&#3232;&#3149;&#3232;&#3228;&#3222;
-                &#3218;&#3262;&#3215;&#3262;&#3185;&#3222; &#3238;&#3248;&#3178;&#3149;&#3240;&#3267;
-                &#3220;&#3248;&#3194; &#3215;&#3262;&#3207;&#3262;&#3201;&#3222;
-                &#3220;&#3248;&#3194;&#3207;&#3232;&#3149;&#3232;&#3228;&#3222; <span class="bold"
-                    id="o-vendor3"></span> &#3215;&#3222;&#3232;&#3149;&#3232;&#3240;&#3149;&#3240;&#3266;
-                &#3236;&#3233;&#3262;&#3248;&#3222;&#3218;&#3222;&#3207;&#3207;&#3266;
-                <span class="bold" id="o-vendor4"></span> &#3222;&#3220;&#3248;&#3222;&#3221;&#3227;
-                &#3224;&#3262;&#3220;&#3236;&#3222;&#3218;&#3232;&#3266; &#3225;&#3267;
-                &#3221;&#3227;&#3232;&#3221;&#3222;&#3240;&#3074; &#3238;&#3240;&#3149;&#3215;&#3267;&#3185;&#3240;
-                &#3215;&#3218;&#3149;&#3203;&#3232;&#3262;&#3221;&#3222;&#3207;&#3267;.
+                ಮೇಲಿನ ಪ್ರಸ್ಥಾವಣೆಯಲ್ಲಿ ವಿವರಿಸಿದಂತೆ <span id="o-year5"></span> ನೇ ಸಾಲಿಗೆ ಲೆಕ್ಕಶೀರ್ಷಿಕೆ 
+                <span id="o-head3"></span> ರಡಿಯಲ್ಲಿ ಸಾಮಾಜಿಕ ಅರಣ್ಯ ವಲಯ ಬಾದಾಮಿ 
+                ವಲಯದಲ್ಲಿ <span class="bold" id="o-vendor3"></span> ಬಿಲ್ಲನ್ನು ತಯಾರಿಸಿದ್ದು 
+                <span class="bold" id="o-vendor4"></span> ಇವರಿಗೆ ಪಾವತಿಸಲು ಈ ಕೆಳಗಿನಂತೆ ಅನುಮೋದನೆ ನೀಡಲಾಗಿದೆ.
             </p>
         </div>
 
@@ -405,10 +153,10 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 10%;">&#3221;&#3149;&#3248;.&#3224;&#3074;</th>
-                    <th style="width: 30%;">&#3220;&#3222;&#3220;&#3248;</th>
+                    <th style="width: 10%;">ಕ್ರ.ಸಂ</th>
+                    <th style="width: 30%;">ವಿವರ</th>
                     <th style="width: 20%;">Receipt ID</th>
-                    <th style="width: 20%;">&#3215;&#3267;&#3236;&#3149;&#3236; (Net)</th>
+                    <th style="width: 20%;">ನಿವ್ವಳ ಮೊತ್ತ (Net)</th>
                     <th style="width: 20%;">Token Number</th>
                 </tr>
             </thead>
@@ -418,88 +166,75 @@
                     <td style="text-align: left; padding-left: 20px;">
                         <span class="bold" id="o-vendor5"></span> - <span id="o-particular"></span>
                     </td>
-                    <td id="o-vendorid">
+                    <td>
+                        <span id="o-vendorid"></span>
+                    </td>
+                    <td style="font-size: 22px;">₹ <span id="o-net1"></span></td>
+                    <td>
                         <br><br>
                         <span class="blank-space"></span>
                     </td>
-                    <td style="font-size: 22px;">&#8377; <span id="o-net1"></span></td>
                 </tr>
                 <tr style="height: 44px; background-color: #f9fafb;">
-                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">GST (<span
-                            id="o-gst-rate"></span>%)</td>
-                    <td style="font-size: 18px;">&#8377; <span id="o-gst"></span></td>
+                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">GST (<span id="o-gst-rate"></span>%)</td>
+                    <td colspan="2" style="font-size: 18px; text-align: left; padding-left: 30px;">₹ <span id="o-gst"></span></td>
                 </tr>
                 <tr style="height: 44px; background-color: #f9fafb;">
-                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">IT (<span
-                            id="o-it-rate"></span>%)</td>
-                    <td style="font-size: 18px;">&#8377; <span id="o-it"></span></td>
+                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">IT (<span id="o-it-rate"></span>%)</td>
+                    <td colspan="2" style="font-size: 18px; text-align: left; padding-left: 30px;">₹ <span id="o-it"></span></td>
                 </tr>
                 <tr style="height: 60px; background-color: #f9fafb;">
-                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">
-                        &#3231;&#3240;&#3149;&#3240;&#3266;
-                        &#3215;&#3074;&#3185;&#3149;&#3185;&#3250;&#3248;&#3262;&#3207;
-                        &#3215;&#3267;&#3236;&#3149;&#3236;</td>
-                    <td style="font-size: 22px;">&#8377; <span id="o-net2"></span></td>
+                    <td colspan="3" style="text-align: right; padding-right: 30px; font-weight: 900;">ಒಟ್ಟು ಮಂಜೂರಾದ ನಿವ್ವಳ ಮೊತ್ತ</td>
+                    <td colspan="2" style="font-size: 22px; text-align: left; padding-left: 30px; font-weight: 900;">₹ <span id="o-net2"></span></td>
                 </tr>
             </tbody>
         </table>
 
         <!-- Signature Section -->
         <div class="signature-section">
-            <p class="sig-name">&#3220;&#3248;&#3194;&#3267; &#3238;&#3248;&#3178;&#3149;&#3240;&#3267;
-                &#3238;&#3217;&#3223;&#3221;&#3262;&#3248;&#3222;</p>
-            <p class="sig-dept">&#3218;&#3262;&#3215;&#3262;&#3185;&#3222; &#3238;&#3248;&#3178;&#3149;&#3240;&#3267;
-                &#3220;&#3248;&#3194; &#3215;&#3262;&#3207;&#3262;&#3201;&#3222;</p>
+            <p class="sig-name">ವಲಯ ಅರಣ್ಯ ಅಧಿಕಾರಿ</p>
+            <p class="sig-dept">ಸಾಮಾಜಿಕ ಅರಣ್ಯ ವಲಯ ಬಾದಾಮಿ</p>
         </div>
 
         <!-- Copy To -->
         <div class="copy-to">
-            <p style="text-decoration: underline; margin-bottom: 12px; font-size: 18px;">
-                &#3224;&#3149;&#3248;&#3236;&#3222;&#3240;&#3149;&#3240;&#3266;:
-            </p>
-            <p>1. &#3230;&#3224; &#3221;&#3185;&#3262;&#3240;&#3227; &#3238;&#3217;&#3223;&#3221;&#3262;&#3248;&#3222;,
-                &#3215;&#3262;&#3207;&#3262;&#3201;&#3222; &#3222;&#3220;&#3248;&#3222;&#3221;&#3227;
-                &#3215;&#3262;&#3218;&#3222;&#3236;&#3222;&#3221;&#3222;&#3221;&#3227;.</p>
-            <p>2. &#3221;&#3205;&#3244;&#3249;&#3207; &#3221;&#3203;&#3236;&#3221;&#3149;&#3221;&#3227;.</p>
+            <p style="text-decoration: underline; margin-bottom: 12px; font-size: 18px;">ಪ್ರತಿಯನ್ನು:</p>
+            <p>1. ಉಪ ಖಜಾನೆ ಅಧಿಕಾರಿಗಳು, ಬಾದಾಮಿ ಇವರಿಗೆ ಮಾಹಿತಿಗಾಗಿ.</p>
+            <p>2. ಕಚೇರಿ ಕಡತಕ್ಕೆ.</p>
         </div>
     </div>
 
     <script>
-        const p = new URLSearchParams(window.location.search);
-        const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
-
-        const year = p.get('year') || localStorage.getItem('kfd_year') || '2025-26';
-        const head = p.get('headCode') || '';
-        const vname = p.get('vendorName') || '';
-        const net = p.get('net') || '';
-        const date = p.get('billDate') ? new Date(p.get('billDate')).toLocaleDateString('en-GB') : '';
-
-        setText('o-year', year);
-        setText('o-year2', year);
-        setText('o-year3', year);
-        setText('o-year4', year);
-        setText('o-year5', year);
-        setText('o-date', date);
-        setText('o-head1', head);
-        setText('o-head2', head);
-        setText('o-head3', head);
-        setText('o-vendor1', vname);
-        setText('o-vendor2', vname);
-        setText('o-vendor3', vname);
-        setText('o-vendor4', vname);
-        setText('o-vendor5', vname);
-        setText('o-vendorid', p.get('vendorId') || '');
-        setText('o-particular', p.get('billCategory') || '');
-        setText('o-category', p.get('billCategory') || '');
-        setText('o-net1', net);
-        setText('o-net2', net);
-        setText('o-gst', p.get('gst') || '');
-        setText('o-gst-rate', p.get('gstRate') || '2');
-        setText('o-it', p.get('it') || '');
-        setText('o-it-rate', p.get('itRate') || '2');
-
-        window.onload = () => setTimeout(() => window.print(), 600);
+        // Logic to populate data from localStorage
+        window.onload = function() {
+            const v = JSON.parse(localStorage.getItem('kfd_last_print'));
+            if(v) {
+                document.getElementById('o-category').innerText = v.billCategory.split(' ')[0] || 'GEN';
+                document.getElementById('o-year').innerText = v.year;
+                document.getElementById('o-date').innerText = new Date(v.billDate).toLocaleDateString('en-GB');
+                document.getElementById('o-year2').innerText = v.year;
+                document.getElementById('o-head1').innerText = v.budgetHeadCode;
+                document.getElementById('o-year3').innerText = v.year;
+                document.getElementById('o-year4').innerText = v.year;
+                document.getElementById('o-head2').innerText = v.budgetHeadCode;
+                document.getElementById('o-vendor1').innerText = v.vendorName;
+                document.getElementById('o-vendor2').innerText = v.vendorName;
+                document.getElementById('o-year5').innerText = v.year;
+                document.getElementById('o-head3').innerText = v.budgetHeadCode;
+                document.getElementById('o-vendor3').innerText = v.vendorName;
+                document.getElementById('o-vendor4').innerText = v.vendorName;
+                document.getElementById('o-vendor5').innerText = v.vendorName;
+                document.getElementById('o-particular').innerText = v.billCategory;
+                document.getElementById('o-vendorid').innerText = v.receiptId;
+                document.getElementById('o-net1').innerText = v.netAmount;
+                document.getElementById('o-gst-rate').innerText = v.gstRate || '2';
+                document.getElementById('o-gst').innerText = v.gstVal || '0.00';
+                document.getElementById('o-it-rate').innerText = v.itRate || '2';
+                document.getElementById('o-it').innerText = v.itVal || '0.00';
+                document.getElementById('o-net2').innerText = v.netAmount;
+            }
+        };
     </script>
-</body>
 
+</body>
 </html>
