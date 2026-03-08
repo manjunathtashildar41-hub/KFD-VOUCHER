@@ -6,23 +6,17 @@
     <title>FAC 63 Voucher - KFD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700;900&display=swap"
+        rel="stylesheet">
     <style>
         /* ===== SCREEN STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-weight: 400; /* Standard weight by default */
-        }
-
         body {
             font-family: "Times New Roman", Times, serif;
             color: black;
             line-height: 1.5;
             padding: 20px;
             background: #f3f4f6;
-            font-size: 12px; /* Base font size 12px */
+            margin: 0;
         }
 
         .no-print-bar {
@@ -42,8 +36,17 @@
             font-size: 13px;
         }
 
-        .btn-print { background: black; color: white; }
-        .btn-back { background: #e5e7eb; color: #111; text-decoration: none; }
+        .btn-print {
+            background: black;
+            color: white;
+        }
+
+        .btn-back {
+            background: #e5e7eb;
+            color: #111;
+            text-decoration: none;
+            display: inline-block;
+        }
 
         .page-wrap {
             background: white;
@@ -54,14 +57,13 @@
             box-sizing: border-box;
         }
 
-        /* Header above 20px */
         .header {
             text-align: center;
             font-weight: bold;
             text-decoration: underline;
             text-transform: uppercase;
-            font-size: 22px;
-            margin-bottom: 15px;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
 
         .meta-table {
@@ -72,7 +74,10 @@
             margin-bottom: 10px;
         }
 
-        .meta-table td { padding: 2px 4px; border: none; }
+        .meta-table td {
+            padding: 2px 4px;
+            border: none;
+        }
 
         .underline-val {
             border-bottom: 1px solid black;
@@ -87,7 +92,8 @@
             border: 1.5px solid black;
         }
 
-        .main-table th, .main-table td {
+        .main-table th,
+        .main-table td {
             border: 1px solid black;
             padding: 6px 8px;
             vertical-align: top;
@@ -107,38 +113,154 @@
             text-align: center;
         }
 
-        .inner-table th, .inner-table td {
+        .inner-table th,
+        .inner-table td {
             border: 1px solid black;
             padding: 4px 6px;
             font-size: 11px;
         }
 
-        .inner-table th { background: #f9f9f9; }
+        .inner-table th {
+            background: #f9f9f9;
+        }
 
         .kannada-font {
             font-family: 'Noto Sans Kannada', sans-serif;
+            font-weight: 900;
+        }
+
+        .sig-block {
+            margin-top: 16px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .sig-section {
+            margin-top: 14px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .sig-right {
+            text-align: right;
+            margin-top: 36px;
+        }
+
+        .sig-name {
+            font-size: 15px;
+            font-weight: 900;
+            text-decoration: underline;
+            text-transform: uppercase;
+        }
+
+        .sig-office {
+            font-size: 13px;
             font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 1px;
         }
 
-        .sig-block, .sig-section, .dcf-section {
-            margin-top: 15px;
-            font-size: 12px;
+        .dcf-section {
+            margin-top: 14px;
+            border-top: 2px dashed black;
+            padding-top: 12px;
         }
 
-        .sig-right { text-align: right; margin-top: 30px; }
-        .sig-name { font-size: 16px; font-weight: 900; text-decoration: underline; text-transform: uppercase; }
-        .sig-office { font-size: 12px; font-weight: 700; text-transform: uppercase; margin-top: 1px; }
-
-        .bold-label { font-weight: 700; }
-        .amount-display { font-weight: 900; border-bottom: 1px solid black; padding: 0 5px; }
-
-        /* ===== PRINT STYLES ===== */
+        /* ===== PRINT STYLES — FORCE 1 PAGE A4 ===== */
         @media print {
-            .no-print { display: none !important; }
-            body { background: white !important; padding: 0; margin: 0; }
-            .page-wrap { box-shadow: none !important; padding: 5mm !important; width: 100% !important; max-width: 100% !important; }
-            @page { size: A4 portrait; margin: 5mm; }
-            .dcf-section { border-top: 2px dashed black; padding-top: 10px; margin-top: 15px; }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                background: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 8mm;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .page-wrap {
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+
+            /* Compress spacing */
+            .header {
+                font-size: 14px !important;
+                margin-bottom: 6px !important;
+            }
+
+            .meta-table {
+                font-size: 11px !important;
+                margin-bottom: 6px !important;
+            }
+
+            .meta-table td {
+                padding: 1px 3px !important;
+            }
+
+            .underline-val {
+                min-width: 100px !important;
+                font-size: 11px !important;
+            }
+
+            .main-table th,
+            .main-table td {
+                padding: 4px 6px !important;
+                font-size: 11px !important;
+            }
+
+            .main-table th {
+                font-size: 11px !important;
+            }
+
+            .inner-table th,
+            .inner-table td {
+                padding: 3px 4px !important;
+                font-size: 10px !important;
+            }
+
+            .inner-table {
+                margin-top: 6px !important;
+            }
+
+            .sig-block {
+                margin-top: 8px !important;
+                font-size: 11px !important;
+            }
+
+            .sig-section {
+                margin-top: 8px !important;
+                font-size: 11px !important;
+            }
+
+            .sig-right {
+                margin-top: 22px !important;
+            }
+
+            .sig-name {
+                font-size: 12px !important;
+            }
+
+            .sig-office {
+                font-size: 11px !important;
+                margin-top: 0 !important;
+            }
+
+            .dcf-section {
+                margin-top: 8px !important;
+                padding-top: 8px !important;
+            }
         }
     </style>
 </head>
@@ -146,8 +268,9 @@
 <body>
     <!-- Toolbar -->
     <div class="no-print-bar no-print">
-        <a href="index.html" class="btn btn-back">← Back</a>
-        <button class="btn btn-print" onclick="window.print()">Print Voucher</button>
+        <a href="Bill Entry Form.html" class="btn btn-back">← Back to Bill Entry</a>
+        <button class="btn btn-print" onclick="window.print()">🖨️ Print Voucher</button>
+        <span id="mode-label"></span>
     </div>
 
     <div class="page-wrap">
@@ -158,15 +281,15 @@
         <!-- SECTION 2: Meta Info -->
         <table class="meta-table">
             <tr>
-                <td width="15%">PARA 183</td>
-                <td width="35%">: <span class="underline-val" id="m-division"></span></td>
-                <td width="20%">K-II RECEIPIENT ID</td>
+                <td width="13%">PARA 183</td>
+                <td width="37%">: <span class="underline-val" id="m-division"></span></td>
+                <td width="17%">K-II ID</td>
                 <td>: <span class="underline-val" id="m-vendorid"></span></td>
             </tr>
             <tr>
                 <td>RANGE</td>
                 <td>: <span class="underline-val" id="m-range"></span></td>
-                <td>BUDGET HEAD</td>
+                <td>HEAD</td>
                 <td>: <span class="underline-val" id="m-head"></span></td>
             </tr>
             <tr>
@@ -187,17 +310,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr style="height: 380px;">
-                    <td style="padding:10px;">
-                        <p style="margin:0 0 10px 0;">
-                            By Amount paid to <strong id="v-vendorname" style="text-decoration:underline; font-weight: 700;"></strong> 
-                            towards <span id="v-particulars" class="bold-label"></span>
+                <!-- Main content row — auto height -->
+                <tr style="vertical-align:top;">
+                    <td style="padding:8px;">
+                        <p style="font-weight:bold; font-size:13px; margin:0 0 8px 0;">
+                            By Amount paid to
+                            <strong id="v-vendorname" style="text-decoration:underline;"></strong>
+                            Towards <span id="v-particulars"></span>
                         </p>
                         <table class="inner-table">
                             <thead>
                                 <tr>
                                     <th>Bill No</th>
-                                    <th>Date</th>
+                                    <th>Bill Date</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -205,47 +330,54 @@
                                 <tr>
                                     <td id="v-billno"></td>
                                     <td id="v-billdate"></td>
-                                    <td id="v-gross" style="font-weight: 700;"></td>
+                                    <td id="v-gross"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </td>
-                    <td style="text-align:center; vertical-align:bottom; font-weight:900; font-size:18px; padding-bottom: 20px;" id="v-gross-mid"></td>
-                    <td style="padding:0; font-size:11px; font-weight:700; text-transform:uppercase;">
-                        <div style="border-bottom:1px solid black; height:60px; padding:6px;">FNB NO: <span id="v-fnb"></span></div>
-                        <div style="border-bottom:1px solid black; height:80px; padding:6px;">P. NO: <span id="v-pno"></span></div>
+                    <td style="text-align:center; vertical-align:middle; font-weight:900; font-size:16px; min-width:60px;"
+                        id="v-gross-mid"></td>
+                    <td
+                        style="padding:0; font-size:11px; font-weight:900; text-transform:uppercase; vertical-align:top;">
+                        <div style="border-bottom:1px solid black; min-height:55px; padding:6px;">FNB NO: <span
+                                id="v-fnb"></span></div>
+                        <div style="border-bottom:1px solid black; min-height:70px; padding:6px;">P. NO: <span
+                                id="v-pno"></span></div>
                         <div style="padding:6px;">CM DATE:</div>
                     </td>
                 </tr>
                 <!-- GST row -->
-                <tr>
-                    <td style="text-align:right; padding-right:12px;" class="bold-label">GST (<span id="gst-rate-label"></span>%)</td>
-                    <td style="text-align:center; font-weight: 700;" id="v-gst-row"></td>
+                <tr style="font-weight:900;">
+                    <td style="text-align:right; padding-right:12px; font-size:12px;">GST (<span
+                            id="gst-rate-label"></span>%)</td>
+                    <td style="text-align:center; font-size:14px;" id="v-gst-row"></td>
                     <td></td>
                 </tr>
                 <!-- IT row -->
-                <tr>
-                    <td style="text-align:right; padding-right:12px;" class="bold-label">IT (<span id="it-rate-label"></span>%)</td>
-                    <td style="text-align:center; font-weight: 700;" id="v-it-row"></td>
+                <tr style="font-weight:900;">
+                    <td style="text-align:right; padding-right:12px; font-size:12px;">IT (<span
+                            id="it-rate-label"></span>%)</td>
+                    <td style="text-align:center; font-size:14px;" id="v-it-row"></td>
                     <td></td>
                 </tr>
                 <!-- Net Amount row -->
-                <tr style="background:#f9f9f9;">
-                    <td align="center" class="kannada-font" style="font-size:14px; font-weight: 700;">
+                <tr style="font-weight:900; background:#f9f9f9;">
+                    <td align="center" class="kannada-font" style="font-size:13px;">
                         ಸಂದಾಯವಾಗಬೇಕಾದ ಒಟ್ಟು ಹಣ (Net Amount)
                     </td>
-                    <td align="center" style="font-size:18px; font-weight: 900; text-decoration:underline double;" id="v-net-bottom"></td>
+                    <td align="center" style="font-size:17px; text-decoration:underline double;" id="v-net-bottom"></td>
                     <td></td>
                 </tr>
             </tbody>
         </table>
 
-        <!-- SECTION 4: Payee Received -->
+        <!-- SECTION 4: Payee Received + Signature -->
         <div class="sig-block">
             <div>
-                <span class="bold-label">Received Rs.</span> 
-                <span class="amount-display" id="v-net-received"></span>
-                &nbsp;&nbsp;<span class="bold-label">In words:</span> <em id="v-words" style="font-size:11px; font-weight: 700; text-decoration: underline;"></em>
+                Received Rs.&nbsp;
+                <span style="font-size:16px; font-weight:900; border-bottom:2px solid black; padding:0 6px;"
+                    id="v-net-received"></span>
+                &nbsp;&nbsp;In words:&nbsp;<em id="v-words" style="font-size:11px; text-decoration: underline; font-weight: bold;"></em>
             </div>
             <div class="sig-right">
                 <div style="height:1px; background:black; width:200px; margin-left:auto; margin-bottom:3px;"></div>
@@ -255,36 +387,41 @@
 
         <!-- SECTION 5: RFO Signature -->
         <div class="sig-section">
-            <div style="margin-bottom: 10px;">
-                <span class="bold-label">Passed for Rs.</span> 
-                <span class="amount-display" id="v-rfo-net"></span>
-                &nbsp;&nbsp;<span class="bold-label">In words:</span> <em id="v-rfo-words" style="font-size:11px; font-weight: 700; text-decoration: underline;"></em>
+            <div>
+                Received Rs.&nbsp;
+                <span style="font-size:16px; font-weight:900; border-bottom:2px solid black; padding:0 6px;"
+                    id="v-rfo-net"></span>
+                &nbsp;&nbsp;In words:&nbsp;<em id="v-rfo-words" style="font-size:11px; text-decoration: underline; font-weight: bold;"></em>
             </div>
             <div class="sig-right">
+                <div style="height:1px; background:black; width:220px; margin-left:auto; margin-bottom:3px;"></div>
                 <p class="sig-name">Range Forest Officer</p>
-                <p class="sig-office">Badami Range</p>
+                <p class="sig-office">Badami SF Range</p>
             </div>
         </div>
 
-        <!-- SECTION 6: DCF Signature (Optional) -->
-        <div class="dcf-section" id="dcf-block">
-            <div style="margin-bottom: 10px;">
-                <span class="bold-label">Passed for Rs.</span> 
-                <span class="amount-display" id="dcf-net"></span>
-                &nbsp;&nbsp;<span class="bold-label">In words:</span> <em id="dcf-words" style="font-size:11px; font-weight: 700; text-decoration: underline;"></em>
+        <!-- SECTION 6: DCF Signature — only shown in DCF mode -->
+        <div class="dcf-section" id="dcf-block" style="display:none;">
+            <div>
+                Passed for Rs.&nbsp;
+                <span style="font-size:16px; font-weight:900; border-bottom:2px solid black; padding:0 6px;"
+                    id="dcf-net"></span>
+                &nbsp;&nbsp;In words:&nbsp;<em id="dcf-words" style="font-size:11px; text-decoration: underline; font-weight: bold;"></em>
             </div>
             <div class="sig-right">
+                <div style="height:1px; background:black; width:240px; margin-left:auto; margin-bottom:3px;"></div>
                 <p class="sig-name">Deputy Conservator of Forests</p>
                 <p class="sig-office">Bagalkot Division</p>
             </div>
         </div>
 
-    </div>
+    </div><!-- end page-wrap -->
 
     <script>
         function numberToWords(num) {
             const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
             const b = ['', '', 'Twenty ', 'Thirty ', 'Forty ', 'Fifty ', 'Sixty ', 'Seventy ', 'Eighty ', 'Ninety '];
+            
             const convert = n => {
                 if (n < 20) return a[n];
                 const d = n % 10;
@@ -292,12 +429,13 @@
                 if (n < 1000) return a[Math.floor(n / 100)] + 'Hundred ' + (n % 100 ? 'and ' + convert(n % 100) : '');
                 return '';
             };
+
             const amount = Math.floor(num);
             const paisa = Math.round((num - amount) * 100);
             
             let str = '';
             const crores = Math.floor(amount / 10000000);
-            const lakhs = Math.floor((amount % 10000000) / 100000);
+            const lakhs = Math.floor((amount % 10000000) / 100);
             const thousands = Math.floor((amount % 100000) / 1000);
             const remainder = amount % 1000;
 
@@ -311,47 +449,61 @@
             return result + " Only";
         }
 
-        window.onload = function() {
-            const v = JSON.parse(localStorage.getItem('kfd_last_print'));
-            if(v) {
-                const net = v.netAmount || '0.00';
-                const words = numberToWords(parseFloat(net));
+        const p = new URLSearchParams(window.location.search);
+        const dcfMode = p.get('dcf') === 'true';
+        const net = p.get('net') || '';
+        const words = numberToWords(parseFloat(net) || 0);
 
-                // Meta Info
-                document.getElementById('m-division').innerText = v.division || 'S.F. Divn, Bagalkot';
-                document.getElementById('m-vendorid').innerText = v.receiptId || '__________';
-                document.getElementById('m-range').innerText = v.range || 'Badami (SF)';
-                document.getElementById('m-head').innerText = v.budgetHeadCode || '__________';
-                document.getElementById('m-vrno').innerText = v.vr_no || '_______';
-                document.getElementById('m-billdate').innerText = v.billDate || '_______';
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
 
-                // Table Info
-                document.getElementById('v-vendorname').innerText = v.vendorName;
-                document.getElementById('v-particulars').innerText = v.billCategory;
-                document.getElementById('v-billno').innerText = v.billNo || v.billNumber;
-                document.getElementById('v-billdate').innerText = v.billDate;
-                document.getElementById('v-gross').innerText = v.grossAmount;
-                document.getElementById('v-gross-mid').innerText = v.grossAmount;
-                document.getElementById('v-gst-row').innerText = v.gstVal || '0.00';
-                document.getElementById('v-it-row').innerText = v.itVal || '0.00';
-                document.getElementById('gst-rate-label').innerText = v.gstRate || '2';
-                document.getElementById('it-rate-label').innerText = v.itRate || '2';
-                document.getElementById('v-net-bottom').innerText = net;
+        // Section 2 – Meta
+        set('m-division', p.get('division') || '');
+        set('m-vendorid', p.get('vendorId') || '');
+        set('m-range', p.get('range') || '');
+        set('m-head', p.get('headCode') || '');
+        set('m-vrno', p.get('vr_no') || '');
+        set('m-billdate', p.get('billDate') || '');
 
-                // Amount in Words - All 3 formats
-                document.getElementById('v-net-received').innerText = net;
-                document.getElementById('v-words').innerText = words;
+        // Section 3 – Table
+        set('v-vendorname', p.get('vendorName') || '');
+        set('v-particulars', p.get('particulars') || p.get('billCategory') || '');
+        set('v-billno', p.get('billNo') || '');
+        set('v-billdate', p.get('billDate') || '');
+        set('v-gross', p.get('gross') || '');
+        set('v-gross-mid', p.get('gross') || '');
+        set('v-gst-row', p.get('gst') || '');
+        set('v-it-row', p.get('it') || '');
+        set('gst-rate-label', p.get('gstRate') || '2');
+        set('it-rate-label', p.get('itRate') || '2');
+        set('v-fnb', p.get('fnb_no') || '');
+        set('v-pno', p.get('p_no') || '');
+        set('v-net-bottom', net);
 
-                document.getElementById('v-rfo-net').innerText = net;
-                document.getElementById('v-rfo-words').innerText = words;
+        // Section 4 – Payee
+        set('v-net-received', net);
+        set('v-words', words);
 
-                document.getElementById('dcf-net').innerText = net;
-                document.getElementById('dcf-words').innerText = words;
-                
-                // Show/Hide DCF based on logic
-                document.getElementById('dcf-block').style.display = v.includeDCFSign ? 'block' : 'none';
-            }
-        };
+        // Section 5 – RFO
+        set('v-rfo-net', net);
+        set('v-rfo-words', words);
+
+        // Section 6 – DCF
+        set('dcf-net', net);
+        set('dcf-words', words);
+
+        if (dcfMode) {
+            document.getElementById('dcf-block').style.display = 'block';
+            if (document.getElementById('mode-label'))
+                document.getElementById('mode-label').innerHTML =
+                    '<span style="background:#1d4ed8;color:white;padding:4px 14px;border-radius:30px;font-weight:900;font-size:12px;">DCF SIGN MODE — Sections 1–6</span>';
+        } else {
+            if (document.getElementById('mode-label'))
+                document.getElementById('mode-label').innerHTML =
+                    '<span style="background:#166534;color:white;padding:4px 14px;border-radius:30px;font-weight:900;font-size:12px;">VOUCHER MODE — Sections 1–5</span>';
+        }
+
+        // Auto-print
+        window.onload = () => setTimeout(() => window.print(), 600);
     </script>
 </body>
 
