@@ -97,30 +97,30 @@
             const netAmount = (gross - gstVal - itVal).toFixed(2);
 
             const buildParams = () => {
-                const p = new URLSearchParams();
-                p.set('vendorName', selectedVendor?.name || '');
-                p.set('vendorId', selectedVendor?.receiptId || '');
-                p.set('vendorCity', selectedVendor?.city || '');
-                p.set('headCode', selectedHead?.code || '');
-                p.set('division', form.division);
-                p.set('range', form.range);
-                p.set('year', form.year);
-                p.set('billNo', form.billNumber);
-                p.set('billDate', form.billDate);
-                p.set('gross', gross.toFixed(2));
-                p.set('gst', gstVal.toFixed(2));
-                p.set('gstRate', form.gstRate);
-                p.set('it', itVal.toFixed(2));
-                p.set('itRate', form.itRate);
-                p.set('net', netAmount);
-                p.set('particulars', form.particulars);
-                p.set('billCategory', form.billCategory);
-                p.set('vr_no', form.vr_no);
-                p.set('fnb_no', form.fnb_no);
-                p.set('p_no', form.p_no);
-                return p.toString();
-            };
-
+    const p = new URLSearchParams();
+    p.set('vendorName', selectedVendor?.name || '');
+    // FIXED: Changed from vendorId to receiptId to pull the correct K-II ID
+    p.set('vendorId', selectedVendor?.receiptId || ''); 
+    p.set('vendorCity', selectedVendor?.city || '');
+    p.set('headCode', selectedHead?.code || '');
+    p.set('division', form.division);
+    p.set('range', form.range);
+    p.set('year', form.year);
+    p.set('billNo', form.billNumber);
+    p.set('billDate', form.billDate);
+    p.set('gross', gross.toFixed(2));
+    p.set('gst', gstVal.toFixed(2));
+    p.set('gstRate', form.gstRate);
+    p.set('it', itVal.toFixed(2));
+    p.set('itRate', form.itRate);
+    p.set('net', netAmount);
+    p.set('particulars', form.particulars);
+    p.set('billCategory', form.billCategory);
+    p.set('vr_no', form.vr_no);
+    p.set('fnb_no', form.fnb_no);
+    p.set('p_no', form.p_no);
+    return p.toString();
+};
             // Print Voucher (S1–S5, no DCF)
             const openVoucher = () => {
                 window.open(`Voucher Format (FAC 63).html?${buildParams()}&dcf=false`, '_blank');
