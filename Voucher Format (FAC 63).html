@@ -98,7 +98,7 @@
                 <td width="13%">DIVISION</td>
                 <td width="37%">: <span class="underline-val" id="m-division"></span></td>
                 <td width="17%">K-II ID</td>
-                <td>: <span class="underline-val" id="m-receiptId"></span></td>
+                <td>: <span class="underline-val" id="m-vendorid"></span></td>
             </tr>
             <tr>
                 <td>RANGE</td>
@@ -242,7 +242,7 @@
         const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
 
         set('m-division', p.get('division'));
-        set('m-receiptId', receiptId);
+        set('m-vendorid', p.get('vendorId'));
         set('m-range', p.get('range'));
         set('m-head', p.get('headCode'));
         set('m-vrno', p.get('vr_no'));
@@ -273,5 +273,4 @@
     </script>
 </body>
 </html>
-
 
