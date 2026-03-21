@@ -89,7 +89,7 @@
                 tokenNo: '', vr_no: '', so_no: '', fnb_no: '', p_no: ''
             });
 
-            const selectedVendor = vendors.find(v => v.id.toString() === form.vendorId.toString());
+            const selectedVendor = vendors.find(v => v.receiptId == form.vendorId);
             const selectedHead = budgetHeads.find(h => h.id.toString() === form.budgetHeadId.toString());
             const gross = parseFloat(form.grossAmount || 0);
             const gstVal = form.deductGST ? Math.round(gross * (parseFloat(form.gstRate) / 100)) : 0;
