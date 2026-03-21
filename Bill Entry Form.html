@@ -100,7 +100,8 @@
     const p = new URLSearchParams();
     p.set('vendorName', selectedVendor?.name || '');
     // FIXED: Changed from vendorId to receiptId to pull the correct K-II ID
-    p.set('receiptId', selectedVendor?.receiptId || ''); 
+    p.set('receiptId', selectedVendor?.receiptId || '');
+    console.log("Sending Receipt ID:", selectedVendor?.receiptId);
     p.set('vendorCity', selectedVendor?.city || '');
     p.set('headCode', selectedHead?.code || '');
     p.set('division', form.division);
