@@ -202,77 +202,76 @@
         </div>
     </div>
 
-<script>
-    const params = new URLSearchParams(window.location.search);
+    <script>
+        function numberToWords(num) {
+            const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+            const b = ['', '', 'Twenty ', 'Thirty ', 'Forty ', 'Fifty ', 'Sixty ', 'Seventy ', 'Eighty ', 'Ninety '];
+            
+            const convert = n => {
+                if (n < 20) return a[n];
+                const d = n % 10;
+                if (n < 100) return b[Math.floor(n / 10)] + (d ? a[d] : '');
+                if (n < 1000) return a[Math.floor(n / 100)] + 'Hundred ' + (n % 100 ? 'and ' + convert(n % 100) : '');
+                return '';
+            };
 
-    // GET VALUES
-    const vendorName = params.get('vendorName') || '';
-    const receiptId = params.get('receiptId') || '';
-    const division = params.get('division') || '';
-    const range = params.get('range') || '';
-    const head = params.get('headCode') || '';
-    const vrno = params.get('vr_no') || '';
-    const billDate = params.get('billDate') || '';
-    const gross = params.get('gross') || '0.00';
-    const gst = params.get('gst') || '0.00';
-    const gstRate = params.get('gstRate') || '0';
-    const it = params.get('it') || '0.00';
-    const itRate = params.get('itRate') || '0';
-    const net = params.get('net') || '0.00';
-    const particulars = params.get('particulars') || '';
-    const billNo = params.get('billNo') || '';
-    const fnb = params.get('fnb_no') || '';
-    const pno = params.get('p_no') || '';
+            const amount = Math.floor(num);
+            const paisa = Math.round((num - amount) * 100);
+            
+            let str = '';
+            const crores = Math.floor(amount / 10000000);
+            const lakhs = Math.floor((amount % 10000000) / 100000);
+            const thousands = Math.floor((amount % 100000) / 1000);
+            const remainder = amount % 1000;
 
-    // SIMPLE NUMBER TO WORDS
-    function numberToWords(num) {
-        const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ',
-            'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ',
-            'Eighteen ', 'Nineteen '];
-        const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            if (crores > 0) str += convert(crores) + 'Crore ';
+            if (lakhs > 0) str += convert(lakhs) + 'Lakh ';
+            if (thousands > 0) str += convert(thousands) + 'Thousand ';
+            if (remainder > 0) str += convert(remainder);
 
-        num = Math.floor(num);
+            let result = (str || 'Zero').trim() + " Rupees";
+            if (paisa > 0) result += " and " + convert(paisa) + " Paise";
+            return result + " Only";
+        }
 
-        if (num < 20) return a[num] + "Rupees Only";
-        if (num < 100) return b[Math.floor(num / 10)] + " " + a[num % 10] + "Rupees Only";
-        if (num < 1000) return a[Math.floor(num / 100)] + "Hundred " + numberToWords(num % 100);
-        if (num < 100000) return numberToWords(Math.floor(num / 1000)) + "Thousand " + numberToWords(num % 1000);
+        const p = new URLSearchParams(window.location.search);
+        const dcfMode = p.get('dcf') === 'true';
+        const net = p.get('net') || '0.00';
+        const words = numberToWords(parseFloat(net));
 
-        return num + " Rupees Only";
-    }
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
 
-    // SET VALUES
-    document.getElementById('m-division').innerText = division;
-    document.getElementById('m-range').innerText = range;
-    document.getElementById('m-head').innerText = head;
-    document.getElementById('m-vrno').innerText = vrno;
-    document.getElementById('m-billdate').innerText = billDate;
+        set('m-division', p.get('division'));
+        set('m-vendorid', p.get('vendorId'));
+        set('m-range', p.get('range'));
+        set('m-head', p.get('headCode'));
+        set('m-vrno', p.get('vr_no'));
+        set('m-billdate', p.get('billDate'));
+        set('v-vendorname', p.get('vendorName'));
+        set('v-particulars', p.get('particulars') || p.get('billCategory'));
+        set('v-billno', p.get('billNo'));
+        set('v-billdate', p.get('billDate'));
+        set('v-gross', p.get('gross'));
+        set('v-gross-mid', p.get('gross'));
+        set('v-gst-row', p.get('gst'));
+        set('v-it-row', p.get('it'));
+        set('gst-rate-label', p.get('gstRate') || '2');
+        set('it-rate-label', p.get('itRate') || '2');
+        set('v-fnb', p.get('fnb_no'));
+        set('v-pno', p.get('p_no'));
+        set('v-net-bottom', net);
+        set('v-net-received', net);
+        set('v-words', words);
+        set('v-rfo-net', net);
+        set('v-rfo-words', words);
+        set('dcf-net', net);
+        set('dcf-words', words);
 
-    document.getElementById('m-vendorid').innerText = receiptId;
+        if (dcfMode) document.getElementById('dcf-block').style.display = 'block';
 
-    document.getElementById('v-vendorname').innerText = vendorName;
-    document.getElementById('v-particulars').innerText = particulars;
-
-    document.getElementById('v-billno').innerText = billNo;
-    document.getElementById('v-billdate').innerText = billDate;
-    document.getElementById('v-gross').innerText = gross;
-    document.getElementById('v-gross-mid').innerText = gross;
-
-    document.getElementById('v-fnb').innerText = fnb;
-    document.getElementById('v-pno').innerText = pno;
-
-    document.getElementById('gst-rate-label').innerText = gstRate;
-    document.getElementById('v-gst-row').innerText = gst;
-
-    document.getElementById('it-rate-label').innerText = itRate;
-    document.getElementById('v-it-row').innerText = it;
-
-    document.getElementById('v-net-bottom').innerText = net;
-
-    // RECEIVED + WORDS (FIXED)
-    document.getElementById('received-amount').innerText = net;
-    document.getElementById('amount-in-words').innerText = numberToWords(parseFloat(net));
-</script>
+        window.onload = () => setTimeout(() => window.print(), 600);
+    </script>
 </body>
 </html>
+
 
