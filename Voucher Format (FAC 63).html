@@ -242,20 +242,7 @@
         const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
 
         set('m-division', p.get('division'));
-       // Try from URL first
-let receiptId = p.get('receiptId');
-
-// If not available, get from localStorage
-if (!receiptId) {
-    const vendors = JSON.parse(localStorage.getItem('kfd_vendors') || '[]');
-    const vendorName = p.get('vendorName');
-
-    const vendor = vendors.find(v => v.name === vendorName);
-    receiptId = vendor?.receiptId || '';
-}
-
-// SET VALUE
-set('m-receiptId', receiptId);
+        set('m-receiptId', receiptId);
         set('m-range', p.get('range'));
         set('m-head', p.get('headCode'));
         set('m-vrno', p.get('vr_no'));
